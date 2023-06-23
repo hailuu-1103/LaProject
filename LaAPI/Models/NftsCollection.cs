@@ -603,7 +603,7 @@ namespace LaAPI.Models
     }
     public class TraitRarity
     {
-        
+       
     }
 
     // Main
