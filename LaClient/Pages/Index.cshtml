@@ -1,8 +1,13 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
 }
+<style>
+	.display-table{
+		display: flex;
+		gap: 20px;
+	}
+</style>
 <body>
 	<!-- CONTENT -->
 	<section id="content">
@@ -54,13 +59,18 @@
 			</ul>
 
 			<!-- Main data -->
-			<div class="table-data">
+			<div class="table-data display-table">
 				<div class="order">
 					<div class="head">
-						<h3>Top Ranking</h3>
+						<div class="head">
+							<h3>Top Ranking</h3>
+							 <i class='bx bx-search'></i>
+							<i class='bx bx-filter'></i> 
+						</div>
 						<i class='bx bx-search'></i>
 						<i class='bx bx-filter'></i>
 					</div>
+			
 					<table>
 						<thead>
 							<tr>
@@ -70,47 +80,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<img src="img/BAYC.webp">
-									<p>Bored Ape Yatch Club</p>
-								</td>
-								<td>1</td>
-								<td><span class="status pending">100</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/DG.webp">
-									<p>DeGod</p>
-								</td>
-								<td>2</td>
-								<td><span class="status process">97</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/MM.webp">
-									<p>Milady Maker</p>
-								</td>
-								<td>3</td>
-								<td><span class="status completed">91</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/RRB.webp">
-									<p>Redacted Remilio Babies</p>
-								</td>
-								<td>4</td>
-								<td><span class="status completed">85</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/MAYC.webp">
-									<p>Mutant Ape Yatch Club</p>
-								</td>
-								<td>5</td>
-								<
-								<td><span class="status completed">75</span></td>
-							</tr>
+							@for(var i = 0; i < Model.NftsCollectionDTO.Count; i++)
+							{
+								var nftModel = Model.NftsCollectionDTO[i];
+								if(i < 5)
+								{
+									<tr>
+									<td>
+										<img src="@nftModel.ImageUrl">
+										<p>@nftModel.Name</p>
+									</td>
+									<td>@(i+1)</td>
+									<td><span class="status pending">100</span></td>
+								</tr>
+								}
+							}
 						</tbody>
 					</table>
 				</div>
@@ -129,47 +113,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<img src="img/BAYC.webp">
-									<p>Bored Ape Yatch Club</p>
-								</td>
-								<td>6</td>
-								<td><span class="status completed">70</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/DG.webp">
-									<p>DeGod</p>
-								</td>
-								<td>7</td>
-								<td><span class="status completed">65</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/MM.webp">
-									<p>Milady Maker</p>
-								</td>
-								<td>8</td>
-								<td><span class="status completed">63</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/RRB.webp">
-									<p>Redacted Remilio Babies</p>
-								</td>
-								<td>9</td>
-								<td><span class="status completed">57</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/MAYC.webp">
-									<p>Mutant Ape Yatch Club</p>
-								</td>
-								<td>10</td>
-								<
-								<td><span class="status completed">49</span></td>
-							</tr>
+							@for (var i = 0; i < Model.NftsCollectionDTO.Count; i++)
+							{
+								var nftModel = @Model.NftsCollectionDTO[i];
+								if (i >= 5)
+								{
+											<tr>
+											<td>
+												<img src="@nftModel.ImageUrl">
+												<p>@nftModel.Name</p>
+											</td>
+											<td>@(i+1)</td>
+											<td><span class="status pending">100</span></td>
+										</tr>
+								}
+							}
 						</tbody>
 					</table>
 				</div>
@@ -202,7 +160,7 @@
 						</li>
 					</ul>
 				</div> -->
-				<a href="#" class="btn-viewall">
+				<a href="/ListedToken" class="btn-viewall">
 					<span class="text">View All Listed Project</span>
 				</a>
 			</div>
@@ -210,9 +168,4 @@
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-
-
-	<script src="script.js"></script>
 </body>
-
-</html>

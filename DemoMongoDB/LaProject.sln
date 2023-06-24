@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoConnectMongoDB", "DemoC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaAPI", "..\LaAPI\LaAPI.csproj", "{77377141-A4FB-471F-8118-70493CA04C55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaClient", "..\LaClient\LaClient.csproj", "{608E1563-0938-4F40-A80E-7482449D1784}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaClient", "..\LaClient\LaClient.csproj", "{608E1563-0938-4F40-A80E-7482449D1784}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,93 @@
+﻿@page
+@model LaClient.Pages.ListedTokenModel
+@{
+}
+<style>
+    .input-search::placeholder {
+        color: rgba(255,255,255,.5);
+        font-size: 18px;
+        letter-spacing: 2px;
+        font-weight: 100;
+    }
+
+    .btn-search:focus ~ .input-search {
+        width: 300px;
+        border-radius: 0px;
+        background-color: darkgrey;
+        border-bottom: 1px solid rgba(255,255,255,.5);
+        transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+    }
+
+    .input-search:focus {
+        width: 300px;
+        border-radius: 0px;
+        background-color: darkgrey;
+        border-bottom: 1px solid rgba(255,255,255,.5);
+        transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+    }
+.own-form-input{
+    margin-top:20px; 
+    margin-left:700px;
+}
+
+</style>
+<section id="content">
+    <form action="#">
+            <div class="own-form-input">
+                <input type="search" class="input-search" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+    </form>
+	<!-- MAIN -->
+	<main>
+		<!-- Main data -->
+		<div class="table-data display-table">
+			<div class="order">
+				<table>
+					<tbody>
+						@foreach(var nftsCollection in Model.NftsCollectionDTO)
+						{
+							<tr>
+									<td>
+									<img src="@nftsCollection.ImageUrl">
+									<p>@nftsCollection.Name</p>
+									</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+			<!-- <div class="todo">
+				<div class="head">
+					<h3>Todos</h3>
+					<i class='bx bx-plus'></i>
+					<i class='bx bx-filter'></i>
+				</div>
+				<ul class="todo-list">
+					<li class="completed">
+						<p>Todo List</p>
+						<i class='bx bx-dots-vertical-rounded'></i>
+					</li>
+					<li class="completed">
+						<p>Todo List</p>
+						<i class='bx bx-dots-vertical-rounded'></i>
+					</li>
+					<li class="not-completed">
+						<p>Todo List</p>
+						<i class='bx bx-dots-vertical-rounded'></i>
+					</li>
+					<li class="completed">
+						<p>Todo List</p>
+						<i class='bx bx-dots-vertical-rounded'></i>
+					</li>
+					<li class="not-completed">
+						<p>Todo List</p>
+						<i class='bx bx-dots-vertical-rounded'></i>
+					</li>
+				</ul>
+			</div> -->
+	</main>
+
+</section>
+

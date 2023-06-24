@@ -20,14 +20,10 @@ namespace LaAPI.Services
 			var documents = nftsCollection.Find(new BsonDocument()).ToList();
 			return documents.ToArray();
 		}
-        public async Task<string> GetAllAsync(string id)
+        public async Task<BsonDocument[]> GetAllAsync()
         {
             var result = RetrieveDocuments();
-            foreach(var document in result)
-            {
-                return document[id].AsString;
-            }
-            return null;
+            return result;
         }
         public async Task<int> GetCollectionCount()
         {

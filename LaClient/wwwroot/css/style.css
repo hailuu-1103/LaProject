@@ -176,8 +176,6 @@ body {
 }
 
 
-
-
 /* NAVBAR */
 #content nav {
 	height: 56px;
@@ -314,8 +312,6 @@ body {
 	width: 100%;
 	padding: 36px 24px;
 	font-family: var(--poppins);
-	max-height: calc(100vh - 56px);
-	overflow-y: auto;
 }
 #content main .head-title {
 	display: flex;
@@ -531,6 +527,7 @@ body {
 #content main .table-data .todo .todo-list li:last-child {
 	margin-bottom: 0;
 }
+
 /* MAIN */
 /* CONTENT */
 
@@ -603,3 +600,4 @@ body {
 		min-width: 420px;
 	}
 }
+
