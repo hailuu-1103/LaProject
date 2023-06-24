@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LaClient</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="~/css/style.css" rel="stylesheet" />
 </head>
 <body>
+	
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="#" class="brand">
@@ -17,14 +18,14 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="#">
-					<i class='bx bxs-dashboard'></i>
+				<a asp-page="/Index">
+					<i class='bx bxs-dashboard fas fa-home'></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<i class='bx bxs-shopping-bag-alt'></i>
+					<i class='bx bxs-shopping-bag-alt fa-regular fa-circle-question' style="color: #3c91e6;"></i>
 					<span class="text">NFT FAQs</span>
 				</a>
 			</li>
@@ -51,7 +52,7 @@
 			<form action="#">
 				<div class="form-input">
 					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+					<button type="submit" class="search-btn"><i class="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i></button>
 				</div>
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>

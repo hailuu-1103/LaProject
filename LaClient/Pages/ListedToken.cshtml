@@ -2,6 +2,7 @@
 @model LaClient.Pages.ListedTokenModel
 @{
 }
+
 <style>
     .input-search::placeholder {
         color: rgba(255,255,255,.5);
@@ -25,69 +26,68 @@
         border-bottom: 1px solid rgba(255,255,255,.5);
         transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
     }
-.own-form-input{
-    margin-top:20px; 
-    margin-left:700px;
-}
-
+    #content .own-main{
+        padding: 0px 15px;
+    }
+    .own-form-input {
+        margin-left: 500px;
+        width: 100%;
+    }
 </style>
-<section id="content">
-    <form action="#">
-            <div class="own-form-input">
-                <input type="search" class="input-search" placeholder="Search...">
-                <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
-            </div>
-    </form>
-	<!-- MAIN -->
-	<main>
-		<!-- Main data -->
-		<div class="table-data display-table">
-			<div class="order">
-				<table>
-					<tbody>
-						@foreach(var nftsCollection in Model.NftsCollectionDTO)
-						{
-							<tr>
-									<td>
-									<img src="@nftsCollection.ImageUrl">
-									<p>@nftsCollection.Name</p>
-									</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
-		</div>
-			<!-- <div class="todo">
-				<div class="head">
-					<h3>Todos</h3>
-					<i class='bx bx-plus'></i>
-					<i class='bx bx-filter'></i>
-				</div>
-				<ul class="todo-list">
-					<li class="completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="not-completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="not-completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-				</ul>
-			</div> -->
-	</main>
 
+<section id="content">
+    <nav>
+        <form action="#">
+            <div class="form-input own-form-input">
+                <input type="search" id="searchInput" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i></button>
+            </div>
+        </form>
+    </nav>
+    
+    <!-- MAIN -->
+    <main class="own-main">
+        <!-- Main data -->
+        <div class="table-data display-table">
+            <div class="order">
+                <table>
+                    <tbody>
+                        @foreach (var nftsCollection in Model.NftsCollectionDTO)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@nftsCollection.ImageUrl">
+                                    <p>@nftsCollection.Name</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 </section>
 
+@section Scripts {
+    <script>
+        function searchNftsCollection() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toLowerCase();
+            var rows = document.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var nameCell = rows[i].getElementsByTagName("p")[0];
+                if (nameCell) {
+                    var name = nameCell.textContent.toLowerCase();
+                    if (name.includes(filter)) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        document.getElementById("searchInput").addEventListener("input", searchNftsCollection);
+    </script>
+}
