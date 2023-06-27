@@ -57,7 +57,7 @@
                             <tr>
                                 <td>
                                     <img src="@nftsCollection.image_url">
-                                    <p>@nftsCollection.name</p>
+                                    <a asp-page="DetailedCollection" asp-route-collection="@nftsCollection.id">@nftsCollection.name</a>
                                 </td>
                             </tr>
                         }
