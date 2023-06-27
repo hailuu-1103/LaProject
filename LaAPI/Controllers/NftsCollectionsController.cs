@@ -27,8 +27,8 @@ namespace LaAPI.Controllers
 			{
 				var dto = new NftsCollectionDTO()
 				{
-					Id = document.GetValue("_id").AsString,
-					Name = document.GetValue("name").AsString,
+					id = document.GetValue("_id").AsString,
+					name = document.GetValue("name").AsString,
 				};
 				if (document.TryGetValue("primary_asset_contracts", out var primaryAssetContracts) &&
 					primaryAssetContracts is BsonDocument primaryAssetContractsDoc &&
@@ -36,7 +36,7 @@ namespace LaAPI.Controllers
 				{
 					string imageUrlValue = imageUrl.AsString;
 
-					dto.ImageUrl= imageUrlValue;
+					dto.image_url= imageUrlValue;
 				}
 				results.Add(dto);
 			}

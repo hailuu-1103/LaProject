@@ -87,8 +87,8 @@
 								{
 									<tr>
 									<td>
-										<img src="@nftModel.ImageUrl">
-										<p>@nftModel.Name</p>
+										<img src="@nftModel.image_url">
+											<a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
 									</td>
 									<td>@(i+1)</td>
 									<td><span class="status pending">100</span></td>
@@ -120,8 +120,8 @@
 								{
 											<tr>
 											<td>
-												<img src="@nftModel.ImageUrl">
-												<p>@nftModel.Name</p>
+												<img src="@nftModel.image_url">
+											<a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
 											</td>
 											<td>@(i+1)</td>
 											<td><span class="status pending">100</span></td>

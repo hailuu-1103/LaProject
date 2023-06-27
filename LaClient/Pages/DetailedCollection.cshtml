@@ -1,0 +1,174 @@
+﻿@page "{collection}"
+@model DetailTokenModel
+@{
+}
+ <style>
+     body {
+            margin-top: 20px;
+        }
+
+        .product-card-10 {
+            border: 1px solid var(--bs-gray-300)
+        }
+
+        .product-card-10 .product-card-image {
+            position: relative
+        }
+
+        .product-card-10 .badge-ribbon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            text-transform: uppercase;
+            background: var(--bs-danger);
+            color: var(--bs-white);
+            z-index: 1;
+            border-radius: 50%
+        }
+
+        .product-card-10 .product-media {
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--bs-gray-300)
+        }
+
+        .product-card-10 .product-media img {
+            transition: ease all .35s;
+            transform: scale(1)
+        }
+
+        .product-card-10 .product-action {
+            padding-top: 8px
+        }
+
+        .product-card-10 .product-action .btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bs-primary);
+            color: var(--bs-white);
+            margin: 0 2px;
+            padding: 0
+        }
+
+        .product-card-10 .product-action .btn:hover {
+            background: var(--bs-dark);
+            color: var(--bs-white)
+        }
+
+        .product-card-10 .product-card-info {
+            text-align: center;
+            padding: 15px
+        }
+
+        .product-card-10 .rating-star {
+            font-size: 12px;
+            margin-bottom: 5px
+        }
+
+        .product-card-10 .product-title {
+            font-size: 14px;
+            margin: 0
+        }
+
+        .product-card-10 .product-title a {
+            color: var(--bs-dark)
+        }
+
+        .product-card-10 .product-price {
+            margin-top: 8px;
+            line-height: normal
+        }
+
+        .product-card-10:hover .product-media img {
+            transform: scale(1.03)
+        }
+
+        a {
+            text-decoration: none;
+        }
+        .vertical-nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+    .pagination {
+        display: inline-block;
+        text-align: center;
+    }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+            .pagination a.active {
+                background-color: sienna;
+                color: white;
+                border-radius: 5px;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+                border-radius: 5px;
+            }
+</style>
+
+<div class="container">
+    <div class="col-lg-9">
+        <div class=row>
+            <div class="col-12">
+                <!-- Navigation bar content -->
+                <div class="row g-3 g-lg-4">
+                    @foreach(var nftsDto in Model.NftsDTO)
+                    {
+                        <div class="col-4 col-lg-3">
+                            <div class="product-card-10">
+                                <div class="product-card-image">
+                                    <div class="badge-ribbon"><span class="badge bg-danger">Sale</span></div>
+                                    <div class="product-media">
+                                        <a href="#">
+                                            <img class="img-fluid"
+                                                 src="@nftsDto.image_url">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="product-card-info">
+                                    <div class="rating-star text">
+                                        <i class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i class="bi bi-star"></i>
+                                    </div>
+                                    <h6 class="product-title"><a href="#">@nftsDto.token_id</a></h6>
+                                    <div class="product-price">
+                                        <span class="text-primary">$28.<small>50</small></span>
+                                    </div>
+                                    <div>
+                                        <span class="text-primary">Last sell: 50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="paging">
+        <div class="pagination">
+            @foreach (var item in Model.PageLink)
+            {
+                @Html.Raw(item)
+            }
+        </div>
+    </div>
+</div>

@@ -1,4 +1,7 @@
+using LaClient.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -21,5 +24,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
+app.UseMiddleware<ResponseTimeMiddleware>();
 app.Run();
