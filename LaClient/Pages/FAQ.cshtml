@@ -1,0 +1,261 @@
+﻿@page
+@model LaClient.Pages.FAQ
+
+@{
+    Layout = "Shared/_Layout";
+}
+<style>
+    
+body{
+    background-color: #FFF7D4;
+    color: #4C3D3D;
+}
+h1{
+    background-color: #FFD95A;
+    padding: 10px;
+    font-size: 70px;
+    font-weight: 300;
+    text-align: center;
+}
+.container{
+    margin-top:40px;
+    position: inherit;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.faq{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.question{
+    cursor: pointer;
+    transition: all .3s;
+}
+.question:hover{
+    scale: 110%;
+}
+.answer{
+    background-color: #C07F00;
+    padding: 10px;
+    pointer-events: none;
+    opacity: 0;
+    height: 0;
+    margin-top: 20px;
+    transition: all .3s;
+}
+.display{
+    border-radius: 20px;
+    color: white;
+    opacity: 1;
+    height: 70px;
+}
+
+</style>
+<body>
+<h1>FAQ</h1>
+<div class="container">
+    <hr>
+    <div class="faq">
+        <div class="question">1.Khái niệm chuỗi khối (blockchain).</div>
+        <div class="answer">
+            Chuỗi khối là một sổ cái kỹ thuật số ghi chép lại mọi sự thay đổi, sau đó cuốn sổ
+            đó được sao chép cho mỗi nút tham gia vào mạng giữ một bản. Điều này cho thấy
+            rằng trong toàn bộ hệ thống không phải chỉ có một vị trí duy nhất, một tài liệu có
+            thể làm căn cứ đáng tin duy nhất, vì những lần sao chép cùng một phiên bản sổ cái
+            được đặt ở nhiều nơi.
+
+            Tất cả các bản sao này được cập nhật khi dữ liệu hoặc giao dịch mới được ghi
+            vào chuỗi khối thông qua sự đồng thuận của tất cả các nút tham gia. Một số người
+            trong hệ thống có trách nhiệm phê duyệt các giao dịch và giám sát mạng bằng cách
+            giải quyết các công thức tinh vi với sự trợ giúp của máy tính hoặc nắm giữ một số
+            lượng lớn tài sản số. Nó là một hệ thống ngang hàng P2P, loại bỏ tất cả mọi khâu
+            trung gian, làm tăng cường an ninh, minh bạch và sự ổn định cũng như giảm thiểu
+            chi phí và lỗi do con người gây ra. [3]
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">2.Khái niệm hợp đồng thông minh (smartcontract).</div>
+        <div class="answer">
+            Hợp đồng thông minh là các chương trình chạy trên chuỗi khối. Hợp đồng thông
+            minh cũng giống như một hợp đồng kỹ thuật số bị bắt buộc thực hiện bởi một bộ
+            quy tắc cụ thể. Các quy tắc này do bộ mã máy tính xác định trước mà tất cả các nút
+            trong mạng đều phải sao chép và thực thi các quy tắc đó.
+
+            Hợp đồng thông minh đại diện cho các giao thức máy tính hay nói cách đơn giản
+            là các đoạn mã là một yếu tố công nghệ cơ bản. Chúng phục vụ để chỉ định tất cả
+            các điều kiện thỏa thuận được ký kết giữa các bên giao dịch với chuỗi khối. Ngay
+            sau khi các điều kiện này được hoàn thành, Hợp đồng thông minh sẽ tự động thực
+            hiện giao dịch.
+
+            Một hệ thống dựa trên chuỗi khối cho phép những người tham gia giảm bớt các
+            khâu trung gian và thủ tục giấy tờ thừa vì nó dựa vào sổ lệnh công khai, nơi bất
+            kỳ bên quan tâm nào cũng có thể xác minh tất cả các giao dịch. Yêu cầu trung tâm
+            ở đây là mô tả tất cả các điều kiện thỏa thuận thông qua các quy tắc toán học với
+            ngôn ngữ lập trình phù hợp. [3]
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">3.NFTs là gì?</div>
+        <div class="answer">
+            NFT (Non-fungible token) là một loại tài sản kỹ thuật số được lưu trữ trên blockchain, có tính “độc nhất” và “không thể thay thế”, “không thể phân chia” [1]. Mỗi NFT tồn tại với mục đích là “bằng chứng xác thực” chứng minh “quyền sở hữu” của một người với một loại tài sản.
+            Các tài sản kỹ thuật số phổ biến trước đây (fungible token) đều có khả năng phân chia và tái xuất vô hạn. Trái ngược đó, theo tiêu chuẩn ERC721 [2] Mỗi NFT được tạo ra sẽ mang một mã định danh độc nhất và thuộc về chủ sở hữu duy nhất. Hiện nay, có một số chuẩn NFT mang tính chất đa sở hữu (NFT Multiple Ownership), đa định danh (Multi-token standard), NFT không thể trao đổi (Soulbound token), …
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">4.NFTs hoạt động như thế nào</div>
+        <div class="answer">
+            <img src="img/4.png" alt="Workflow ò NFT Systems"/>
+            NFT được chạy trên hệ thống chuỗi khối của blockchain, một sổ cái kỹ thuật phân tán công khai, với tác dụng dùng để ghi lại các giao dịch. Để tạo ra được token NFTs thì cũng giống với việc tạo ra token ERC20, chỉ khác ở tiêu chuẩn sử dụng ở trong hợp đồng thông minh. Vậy đầu tiên sẽ cần có hợp đồng thông minh (nên sử dụng các tiêu chuẩn phổ biến của NFTs như ERC721, ERC1155, …).
+
+            Trong hợp đồng thông minh sẽ định nghĩa các thuộc tính và phương thức của NFTs, đặc biệt sẽ có hàm mint để đúc ra một NFT với tokenId riêng biệt. Đầu vào của hàm mint này có thể linh hoạt thay đổi nhưng thường sẽ bao gồm: name, symbol, tokenURI là những dữ liệu người chế tạo phải chuẩn bị trước khi muốn đúc một NFT. Trong đó, tokenURI sẽ là đường dẫn tới siêu dữ liệu đại diện cho vật phẩm hữu hình của NFT (Nên được lưu thông qua giao thức IPFS), có thể kể đến như [13]:
+            Tác phẩm nghệ thuật
+            Hình ảnh ở dạng GIF.
+            Video quay lại khoảnh khắc nổi bật trong thể thao.
+            Ảnh đại diện, vật phẩm trong game.
+            Thiết kế giày thể thao.
+            Các sản phẩm âm nhạc.
+            Sau khi đúc thành công một NFT, người đúc sẽ đồng thời nắm quyền sở hữu, điều này được lưu lại trên chuỗi khối. Khi này hoạt động mua bán và chuyển nhượng có thể bắt đầu xảy ra cùng với sự xuất hiện của các sàn giao dịch, đấu giá, … Ví dụ để khi bán một NFT sẽ cần sự xác nhận quyền sở hữu của người bán cùng với giá bán, và sau đó là sự xác nhận của người muốn mua. Khi các hành động này hoàn tất thì quyền sở hữu NFTs sẽ được tự động chuyển sang cho người mua. Khi đó, chủ sở hữu mới được coi là người sở hữu siêu dữ liệu lưu trong giao thức IPFS của NFT đó.
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            5.Các tiêu chuẩn NFT nổi bật trên Ethereum (tiêu chuẩn ERC)?
+
+        </div>
+        <div class="answer">
+            Có 2 chuẩn nổi bật, … => Từng cái khác nhau như nào … rồi đi vào chi tiết.
+            ERC721 [6]: Mỗi token ERC721 là duy nhất và được phân biệt với các token khác. Đặc biệt, mỗi token mang một biến uint256 là tokenId, cặp (contract address, tokenId) là duy nhất trên toàn mạng blockchain [1 - page 8]. tokenId còn là đầu vào khi gọi trực tiếp và contract để lấy ra các thông tin cụ thể về nft như images, tokenURI, … Ngoài ra, chuẩn ERC721 có 2 hàm điển hình là ownerOf(uint256 _tokenId) để biết được người sở hữu của một token và transferFrom(address _from, address _to, uint256 tokenId) để chuyển giao quyền sở hữu của token ERC721. Hàm transferFrom sẽ cần chữ ký xác nhận của người gửi.
+            <img src="img/5.png" alt="NFT Standard Interfaces"/>
+            ERC1155 (Multi Token Standard) [7]:
+            Chuẩn ERC1155 được mở rộng kết hợp từ chuẩn ERC20 & ERC721, (khác erc721 như nào, các ý lặt vặt mô tả sau) các thuộc tính của 1 token có thể bao gồm thông tin tuỳ chọn như metadata, lock-time, date, supply, … [1]. Các tokenId được xác định ở đây không đại diện cho một tài sản duy nhất mà là các nhóm tài sản. [5]
+
+            Ví dụ: một ID có thể đại diện cho "kiếm" và một chiếc ví có thể sở hữu 1.000 thanh kiếm.
+            Qua đó, có thể nhận thấy ERC1155 cung cấp một tập hợp siêu chức năng của ERC721. Tức là khi sử dụng tiêu chuẩn ERC1155, chỉ cần có tạo ra một NFT với tokenId và đặt số lượng là 1 cho chúng thì đã có thể tạo ra 1 NFT giống với chuẩn ERC721. Do những ưu điểm này nên ERC1155 ngày càng được ưa chuộng sử dụng.
+            ERC5114 (Soulbound Token): Được đề xuất bởi Vitalik Buterin, SBTs là tokens không thể chuyển nhượng, đại diện cho danh tính của một người sử dụng công nghệ chuỗi khối. SBTs có thể sử dụng trong hồ sơ y tế, lịch sử công việc và bất kỳ loại thông tin nào tạo nên một người hoặc tổ chức. Ví lưu giữ hoặc phát hành các bản ghi này được gọi là “Souls”. [8]
+            Định hướng của V.Buterin khi tạo ra Soulbound Token là để tạo ra một Xã hội phi tập trung (DeSoc) gồm nhiều linh hồn (Souls, tương đương với các địa chỉ ví) sở hữu các soulbound tokens khác nhau, từ đó hình thành nên một bối cảnh xã hội với các danh tính dễ xác thực trên mạng chuỗi khối [9]
+            
+            <img src="img/6.png" alt="NFT-related Token standards"/>
+            ERC864 (Divisible NFTs): Tiêu chuẩn này ra đời giải quyết vấn để đa sở hữu của 1 NFT. Khi mà NFT theo tiêu chuẩn ERC721 thông thường chỉ được sở hữu bởi duy nhất 1 địa chỉ, thì theo tiêu chuẩn ERC864, NFT có thể chia nhỏ thành các phần bằng nhau và được sở hữu bởi các địa chỉ khác nhau. Tiêu chuẩn này vẫn đang trong thời gian thử nghiệm và dự định sẽ có thể giải quyết một số bài toán riêng biệt. [10]
+           
+            ERC998 (Composable NFTs): Tiêu chuẩn ERC998 cho phép kết hợp hoặc đính kèm giữa các NFTs. Ví dụ một NFT độc nhất có thể đính kèm với NFT-parent như một trang bị, và khi NFT-parent bị chuyển quyền sở hữu, NFT đính kèm cũng sẽ được chuyển đi theo.[10]
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            6.Tác dụng của NFTs?
+        </div>
+        <div class="answer">
+            Mục đích của việc sở hữu một NFT có thể biến đổi một cách rất linh hoạt, dựa vào cách mà nó được tạo ra và các tiện ích (Utilities) mà nó mang lại.
+            Với những tính chất đặc biệt theo định nghĩa của NFT, NFT được ứng dụng rộng rãi và đa dạng trong nhiều lĩnh vực như: tác phẩm nghệ thuật, đồ sưu tầm, vật phẩm trong
+            trò chơi, vé sự kiện, minh chứng thành tích, . . . [3]
+            Trong nghệ thuật, mỗi người có thể tạo ra hoặc mua một tác phẩm nghệ thuật, gắn nó với một NFT trên mạng chuỗi khối để chứng minh quyền sở hữu của mình. Khi sở hữu NFT này đồng nghĩa với việc bạn sở hữu tác phẩm nghệ thuật đó ngoài đời thực.
+            Trong trò chơi, NFT được ứng dụng giúp người chơi có thể thực sự sở hữu các vật phẩm, nhân vật trong game, đồng thời trao đổi mua bán với ít rủi ro hơn. Đối với lĩnh vực vé tham gia sự kiện, các tổ chức có thể sẽ tạo ra các NFT có chứng thực về tổ chức tạo ra trên blockchain và phân phối quyền sở hữu cho những người mà họ muốn tặng vé hoặc bán vé. Những người này khi tham gia sự kiện chỉ cần minh chứng họ sở hữu vé ….
+            Và rất nhiều tác dụng khác mà NFT có thể mang lại dựa trên cách thức nó được tạo ra và quy định bởi một tổ chức. Điều này được xác định rõ ràng trong hợp đồng thông minh trước khi chuyển giao tới người sở hữu nên giải quyết được vấn đề Centralization.
+            Ngoài ra, hiện nay có nhiều NFTs được tạo ra và bán mà không có tác dụng rõ ràng, chủ yếu đầu cơ và để mang lại lợi ích cá nhân, cho nên cần nghiên cứu kỹ càng về mục đích thực sự của một NFT và không nên chạy theo số đông.
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            7.Mua/Bán/Cho Tặng NFTs như thế nào?
+
+        </div>
+        <div class="answer">
+            NFT là tài sản kỹ thuật số, vì vậy nó cũng thường được giao dịch bằng tiền kỹ thuật số, và cũng đôi khi có thể là USD($).
+            Vậy trước hết:
+            - Để mua NFTs, cần phải sở hữu tiền kỹ thuật số mà loại NFT đó cho phép mua
+            - Để bán NFTs, bạn phải là chủ sở hữu của 1 NFT.
+            Hướng dẫn mua NFTs trên Rarible:
+            Bước 1: truy cập Rarible (https://rarible.com/)
+            Bước 2: Nhấn “Connect Wallet” và đăng nhập vào ví
+            <img src="/img/7.png" alt="Bước 2"/>
+            
+            Bước 3: Vào Explore/Collections, chọn NFTs bạn muốn mua
+            <img src="img/7.1.png" alt="Bước 3"/>
+            Bước 4: Sau khi kéo xuống, bạn sẽ thấy rất nhiều NFTs của Collections đó đang được treo bán. Ví dụ hình dưới là về Collections BoredApeYachtClub. Chọn 1 NFT bạn mong muốn để thực hiện mua hoặc thêm vào giỏ hàng để mua sau.
+            <img src="img/7.2.png" alt="Bước 4"/>
+            Bước 5: Xác nhận giao dịch. Trong trường hợp ví của bạn đủ tiền để mua NFTs, một pop-up của metamask sẽ hiện ra để bạn xác nhận giao dịch. KYC
+            Sau khi hoàn thành, số dư trong ví của bạn được cập nhận và chủ sở hữu NFT cũng sẽ được chuyển giao cho địa chỉ ví của bạn, bạn có thể kiểm tra bằng cách vào mục “Owned” trong phần “Collections” cá nhân.
+            <img src="img/7.3.png" alt="Bước 5"/>
+            Hướng dẫn tạo NFT:
+            Bước 1: Chọn Create/NFT
+            <img src="img/7.4.png" alt="Bước 1"/>
+            
+            Bước 2: Chọn mạng và loại tuỳ theo mục đích (Ví dụ Ethereum -> Single)
+            <img src="img/7.5.png" alt="Bước 2"/>
+            
+            Bước 3: Cập các thông tin về NFTs (image, name, description, …)
+            <img src="img/7.6.png" alt="Bước 3"/>
+            <img src="img/7.7.png" alt="Bước 3"/>
+            Bước 4: Chọn “Create Item”
+            <img src="img/7.8.png" alt="Bước 3"/>
+            Sau đó “Confirm” giao dịch trên Metamask pop-up. Sau khi tạo 1 NFT cũng giống như việc bạn mua 1 NFT và có thể xem trong mục “Owned”
+            Ngoài ra, việc Mint một NFTs có thể diễn ra bằng cách gửi transaction trực tiếp đến smartcontract, việc làm này sẽ an toàn hơn việc Mint từ website trong trường hợp website chưa được kiểm duyệt an toàn.
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            8.NFTs và các thông tin metadata thực sự được lưu trữ như thế nào?
+        </div>
+        <div class="answer">
+            Các sản phẩm NFT được thúc đẩy bởi mục tiêu bảo tồn nghệ thuật kỹ thuật số, nên việc xác định dữ liệu nào để tái tạo lại tác phẩm nghệ thuật là cần thiết. Trước mắt, có thể phân biệt giữa ba phương pháp lưu trữ chính: Lưu trữ đám mây, lưu trữ trên chuỗi và hệ thống lưu trữ phi tập trung (IPFS và Arweave). Các thuộc tính của chúng liên quan đến tính toàn vẹn và tính sẵn có rất khác nhau:
+            - Lưu trữ đám mây không cung cấp đảm bảo cứng - dữ liệu được lưu trữ có thể bị đột biến hoặc di chuyển (lại) bất cứ lúc nào.
+            - NFT được lưu trữ trên chuỗi (Onchain storage):
+            + NFT có tính năng lưu trữ siêu dữ liệu hoặc tài sản trên chuỗi (onchain storage), thường dựa trên việc triển khai hợp đồng thông minh tùy chỉnh (smart contract). Trong trường hợp này, NFT phải có tiêu chuẩn vàng và được xem xét cho bất kỳ dữ liệu nào đủ nhỏ để cho phép điều này. Các tệp siêu dữ liệu đã có thể được lưu trữ trên chuỗi bằng URI dữ liệu.[1] Điều này có thể được tối ưu hóa hơn nữa bằng cách chỉ lưu trữ các giá trị trường có liên quan trên chuỗi và xây dựng siêu dữ liệu JSON một cách nhanh chóng. Lưu trữ tài sản trên chuỗi chỉ khả thi đối với một tập hợp con của nghệ thuật kỹ thuật số. EG: Nghệ thuật pixel, nghệ thuật ASCII hoặc nghệ thuật tổng hợp.
+            + Ở trường hợp khác, cần xem xét quản lý phụ thuộc và khả năng tái tạo. Eg: Thông qua các phụ thuộc khóa phiên bản trên chuỗi.
+            + Tài sản phải bất biến theo mặc định, tương ứng thực tế với kỳ vọng của người dùng. Khả năng thay đổi nên được truyền đạt rõ ràng. Các đột biến đối với siêu dữ liệu nên được thực hiện minh bạch theo cách cho phép tái tạo từ dữ liệu onchain.
+            => Nếu lưu trữ onchain không phải là một tùy chọn, nên xem xét hệ thống lưu trữ phân tán có địa chỉ nội dung. Tóm lại:
+            Tính toàn vẹn và tính khả dụng của các tác phẩm nghệ thuật (hoặc mã được thể hiện) được đảm bảo miễn là blockchain cơ bản còn nguyên vẹn và có thể truy cập được.
+            Do chi phí lưu trữ dữ liệu cao trên các mạng blockchain công cộng như Ethereum, lưu trữ dữ liệu trên chuỗi có thể chỉ khả thi đối với nghệ thuật kỹ thuật số với yêu cầu không gian lưu trữ thấp, chẳng hạn như nghệ thuật pixel và nghệ thuật tạo ra.
+            Mặc dù dữ liệu cốt lõi cần thiết cho việc tái tạo tác phẩm nghệ thuật có thể lấy được từ blockchain, các phụ thuộc phụ trợ vẫn có thể được yêu cầu. Ngay cả lưu trữ trên chuỗi cũng nên được kết hợp với khái niệm bảo tồn nghệ thuật kỹ thuật số toàn diện nếu tính khả dụng lâu dài là mục tiêu.
+            Ví dụ: Các dự án NT tổng quát có thể chọn lưu trữ mã nguồn trên chuỗi và cung cấp phiên bản kết xuất trước của tác phẩm nghệ thuật trên lưu trữ đám mây để thuận tiện. Trường hợp này được xem là được lưu trữ trên chuỗi, vì có thể xây dựng lại từ dữ liệu trên chuỗi.
+            + Đảm bảo lưu trữ trên chuỗi là kết quả trực tiếp từ các thuộc tính bảo mật của hệ thống blockchain cơ bản. Tính khả dụng của dữ liệu và tính toàn vẹn dữ liệu là một trong những tính năng cốt lõi của các hệ thống blockchain không được phép. Đây là một giả định hợp lý rằng các hệ thống phổ biến như Ethereum sẽ vẫn còn nguyên vẹn và hiệu quả trong việc cung cấp tính khả dụng và tính toàn vẹn cho dữ liệu được lưu trữ trong nhiều năm tới.
+
+            - Đối với bất kỳ giải pháp offchain storage: Mặc dù lưu trữ trên chuỗi có lợi ích tuy nhiên chúng có giới hạn lưu trữ hiện tại của chuỗi khối Ethereum. Nên hầu hết các dự án lưu trữ siêu dữ liệu đều diễn ra ngoài chuỗi (offchain storage).
+            + Trạng thái lưu trữ dữ liệu NFT được triển khai cụ thể các phương pháp lưu trữ khác nhau và đo lường sự sao chép dữ liệu trên IPFS. IPFS là hệ thống lưu trữ phân tán phổ biến nhất cho NFT ở thời điểm hiện tại. Nó sử dụng địa chỉ nội dung thông qua định danh nội dung (CID) - được hình thành dựa trên hàm băm mật mã của dữ liệu được địa chỉ. Các thư mục và tệp lớn được lưu trữ dưới dạng đồ thị tuần hoàn có hướng (DAG) của các khối băm.
+            + Một hàm băm (hash) của dữ liệu được tham chiếu phải được lưu trữ trên chuỗi (onchain storage). Hàm băm này thường có thể được lưu trữ nhị phân và tái tạo nhanh chóng. Các hệ thống lưu trữ phân tán nên được sử dụng theo cách khuyến khích sao chép dữ liệu. Một số hệ thống lưu trữ hứa hẹn rõ ràng sự sẵn có lâu dài của dữ liệu. Về việc sao chép và tính khả dụng của nội dung liên quan đến NFT trên IPFS để xem xét các cơ chế khám phá nội dung ngoài tra cứu DHT. Có thể hình dung: Một hệ thống lưu trữ nội dung trên nhiều hệ thống lưu trữ song song. Các hàm băm được lưu trữ có thể được sử dụng để tự động tạo hoặc theo một cách nào đó xác thực số nhận dạng nội dung cho nhiều hệ thống lưu trữ phân tán (ví dụ: IPFS và BitTorrent). Các phương pháp lưu trữ được cải thiện như ý tưởng phác thảo sẽ mang lại lợi ích cho tất cả các hình thức nỗ lực bảo tồn kỹ thuật số, bao gồm cả việc bảo tồn nghệ thuật kỹ thuật số không phải NFT.
+            + Thông thường, nội dung không được yêu cầu trực tiếp qua IPFS mà thông qua cổng HTTP-IPFS, cổng này tìm nạp nội dung qua IPFS và trả về qua HTTP. Các cổng công cộng được cung cấp bởi cộng đồng. Điều này thuận tiện vì nó không yêu cầu chạy cục bộ nút IPFS và các cổng công cộng thường được kết nối tốt và nhanh chóng tìm nạp nội dung. Tuy nhiên, nó tạo ra sự phụ thuộc vào cơ sở hạ tầng tập trung.[2] Vì nội dung được tải xuống trực tiếp từ các nút trên mạng, nó có sẵn miễn là nó được giữ bởi ít nhất một nút trực tuyến và có thể khám phá. Một số công ty cung cấp dịch vụ ghim trả phí, lưu trữ nội dung trên các nút của họ, làm cho nó có sẵn cho mạng IPFS.
+            + Theo phân tích thực nghiệm về 1000 NFT xếp hạng hàng đầu cho thấy nhiều NFT nổi bật tận dụng thành công cơ sở hạ tầng lưu trữ phân tán và lưu trữ trên chuỗi như Hệ thống tệp liên hành tinh (IPFS).[3] Đối với nội dung được lưu trữ trên IPFS, định lượng mức độ sao chép các phần NFT được lưu trữ (và do đó, có sẵn) trong mạng này.
+            => Các hệ thống lưu trữ phi tập trung có thể có các thuộc tính khác nhau liên quan đến tính toàn vẹn và tính khả dụng. Các hệ thống được sử dụng bởi NFT nghệ thuật kỹ thuật số trong mẫu của chúng tôi dựa trên số nhận dạng nội dung được tạo bằng mật mã: Các liên kết vào các hệ thống lưu trữ này tương ứng với hàm băm mật mã của nội dung được lưu trữ. Trên thực tế, các thay đổi đối với nội dung gốc có thể được phát hiện miễn là tính toàn vẹn của URI của nội dung được duy trì. Tính khả dụng của nội dung được lưu trữ trong các hệ thống lưu trữ dữ liệu phi tập trung phụ thuộc nhiều vào đặc thù hệ thống và mức độ phổ biến của nội dung được lưu trữ.
+
+            [1] Larry M. Masinter. 1998. The "Data" URL Scheme. Request for Comments RFC 2397. Internet Engineering Task Force, (Aug. 1998). 5 pp. doi: 10.17487/RFC2397.
+            [2] Leonhard Balduf, Sebastian Henningsen, Martin Florian, Sebastian Rust, and Björn Scheuermann. 2022. Monitoring Data Requests in Decentralized Data Storage Systems: A Case Study of IPFS. (May 23, 2022). arXiv: 2104.09202 [cs]. doi: 10.48550/arXiv.2104.09202.
+            [3] Balduf, Leonhard, Martin Florian, and Björn Scheuermann. "Dude, where's my NFT: distributed infrastructures for digital art." Proceedings of the 3rd International Workshop on Distributed Infrastructure for the Common Good. 2022.
+
+            Lưu trữ trên chuỗi (onchain storage): lưu gì, lưu ở đâu
+            Lưu trữ ngoài chuỗi (offchain storage): lưu gì
+        </div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            9.Các rủi ro nào có thể xảy ra với tài sản NFTs của bạn? [1]
+        </div>
+        <div class="answer">
+            Giả mạo (Spoofing): Spoofing là một hình thức mạo danh một thực thể khác trên hệ thống (con người/máy tính). Khii một người dùng tương tác để mint hoặc sell NFT, kẻ đánh cắp có thể khai phá lỗ hỏng về quyền xác thực hoặc đánh cắp khoá bí mật của người dùng để chuyển quyền sở hữu NFT một cách bất hợp pháp
+            => Giải pháp: Kiểm tra tính chính thức cho hợp đồng thông minh/trang web mà bạn muốn sử dụng và nên có ví lạnh để bảo vệ khoá bí mật.
+            Giả mạo (Tampering): Tampering đề cập đến sự sửa đổi dữ liệu, làm mất tính toàn vẹn. Giả sử chuỗi khối hoạt động an toàn và công khai, thì metadata và quyền sở hữu của NFTs là không thể thay đổi. Nhưng dữ liệu lưu bên ngoài chuỗi khối thì có thể bị thao túng.
+            => Giải pháp: Khi trao đổi NFTs, người bán nên gửi có dữ liệu gốc cho người mua
+            Sự chối bỏ (Repudiation): Repudiation đề cập đến tình huống mà người sở hữu không thể tranh chấp tài sản của mình [11] [12]. Dữ liệu băm có thể bị kẻ tấn công độc hại giả mạo hoặc dữ liệu băm có thể liên kết với địa chỉ của kẻ tấn công.
+            => Giải pháp: Sử dụng hợp đồng đa chữ ký có thể giải quyết phần nào vấn đề này vì mỗi ràng buộc phải được xác nhận bởi nhiều bên tham gia.
+            Tiết lộ thông tin (Information Disclosure): Rò rỉ thông tin xảy ra khi thông tin được tiết lộ cho người dùng trái phép, vi phạm tính bảo mật [12]. Trong hệ thống NFT, thông tin trạng thái và mã hướng dẫn trong hợp đồng thông minh hoàn toàn minh bạch và bất kỳ trạng thái nào cũng như những thay đổi của nó đều có thể truy cập công khai bởi bất kỳ người quan sát nào. Ngay cả khi người dùng chỉ đặt hàm băm NFT vào chuỗi khối, những kẻ tấn công độc hại có thể dễ dàng khai thác khả năng liên kết của hàm băm và giao dịch.
+            => Giải pháp:
+        </div>
+    </div>
+    <hr>
+</div>
+</body>
+<script>
+let questions = document.querySelectorAll(".question")
+let answers = document.querySelectorAll(".answer")
+
+questions.forEach((question)=>{
+    question.addEventListener("click",()=>{
+        const answer = question.closest(".faq").querySelector(".answer")
+        answer.classList.toggle("display")
+        answers.forEach((a)=>{
+            a!= answer && a.classList.remove("display")
+        })
+    })
+})
+</script>

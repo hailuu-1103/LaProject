@@ -26,7 +26,9 @@ namespace LaClient.Pages
         public List<string> PageLink { get; set; } = new();
         public DetailTokenModel()
         {
-	        this.client = new HttpClient();
+	        this.client     = new HttpClient();
+	        this.NftDto     = new List<NftsDTO>();
+	        this.NftSaleDto = new List<NftsSaleDTO>();
         }
         public async Task<IActionResult> OnGetAsync(string? collection)
         {
@@ -46,13 +48,13 @@ namespace LaClient.Pages
 			}
 
 			var page = new PageLink(PageSize);
-			this.PageLink = page.getLink(this.CurrentPage, totalRecords, "/DetailedToken/" + collection + "?");
+			this.PageLink = page.getLink(this.CurrentPage, totalRecords, "/DetailedCollection/" + collection + "?");
 
 			this.nftApiHandler = $"GetNftByCollection/{collection}/{this.CurrentPage}/{PageSize}";
 			var response = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
 			var data     = await response.Content.ReadAsStringAsync();
 			
-			this.NftDto = JsonSerializer.Deserialize<List<NftsDTO>>(data, options).ToList();
+			this.NftDto = JsonSerializer.Deserialize<List<NftsDTO>>(data, options)!.ToList();
 
             return this.Page();
         }

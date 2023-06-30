@@ -9,16 +9,14 @@ namespace LaClient.Pages
 
     public class ListedTokenModel : PageModel
     {
-        private readonly ILogger<IndexModel> logger;
         private HttpClient client;
 
         private static readonly string NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
 
         public List<NftsCollectionDTO>? NftsCollectionDto;
 
-        public ListedTokenModel(ILogger<IndexModel> logger)
+        public ListedTokenModel()
         {
-            this.logger = logger;
             this.client = new HttpClient();
         }
 

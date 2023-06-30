@@ -1,12 +1,10 @@
-﻿using LaAPI.DTO;
-using LaAPI.Models;
-using LaAPI.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
-
-namespace LaAPI.Controllers
+﻿namespace LaAPI.Controllers
 {
-    [Controller]
+	using LaAPI.DTO;
+	using LaAPI.Services;
+	using Microsoft.AspNetCore.Mvc;
+
+	[Controller]
     [Route("api/[controller]")]
     public class NftSaleController : Controller
     {

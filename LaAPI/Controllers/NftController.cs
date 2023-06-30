@@ -15,7 +15,7 @@ namespace LaAPI.Controllers
         {
             this.nftService = service;
         }
-        [HttpGet("GetNftByCollection/{collection}/{pageNumber}/{pageSize}")]
+        [HttpGet("GetNftByCollection/{collection}/{pageNumber:int}/{pageSize:int}")]
         public async Task<List<NftsDTO>> GetNftByCollectionAsync(string collection, int pageNumber, int pageSize)
         {
             return await this.nftService.GetNftByCollectionAsync(collection, pageNumber, pageSize);

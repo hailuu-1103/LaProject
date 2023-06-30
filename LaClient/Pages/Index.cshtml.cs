@@ -8,17 +8,15 @@
 
 	public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> logger;
-        private HttpClient client;
+	    private HttpClient client;
 
         private static readonly string NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
 
         public List<NftsCollectionDTO>? NftCollectionDto;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel()
         {
-            this.logger = logger;
-            this.client = new HttpClient();
+	        this.client = new HttpClient();
         }
 
         public async Task<IActionResult> OnGetAsync()
