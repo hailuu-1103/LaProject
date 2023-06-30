@@ -1,18 +1,19 @@
-﻿using LaAPI.DTO;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Text.Json;
-
-namespace LaClient.Pages
+﻿namespace LaClient.Pages
 {
-    public class IndexModel : PageModel
+	using System.Text.Json;
+	using LaAPI.DTO;
+	using LaClient.Materials;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Mvc.RazorPages;
+
+	public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> logger;
         private HttpClient client;
 
-        private const string NftCollectionApiUrl = "https://localhost:7042/api/NftsCollections/GetAllCollections";
+        private static readonly string NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
 
-        public List<NftsCollectionDTO> NftsCollectionDTO;
+        public List<NftsCollectionDTO>? NftCollectionDto;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -28,9 +29,9 @@ namespace LaClient.Pages
 			{
 				PropertyNameCaseInsensitive = true
 			};
-			this.NftsCollectionDTO = JsonSerializer.Deserialize<List<NftsCollectionDTO>>(data, options);
-            this.NftsCollectionDTO = this.NftsCollectionDTO.Take(10).ToList();
-            return Page();
+			this.NftCollectionDto = JsonSerializer.Deserialize<List<NftsCollectionDTO>>(data, options);
+            this.NftCollectionDto = this.NftCollectionDto!.Take(10).ToList();
+            return this.Page();
 		}
     }
 }

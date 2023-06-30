@@ -11,56 +11,56 @@ namespace LaClient.Pages
     {
         private HttpClient client;
 
-        private const string NftApiUrl = "https://localhost:7042/api/Nfts/";
-        private const string NftSaleApiUrl = "https://localhost:7042/api/NftsSale/";
+        private static readonly string NftApiUrl     = $"{ProjectStaticValue.Host}/api/Nft/";
+        private static readonly string NftSaleApiUrl = $"{ProjectStaticValue.Host}/api/NftSale/";
 
-        private string NftApiHandler;
-        private string NftSaleApiHandler;
+        private string nftApiHandler;
+        private string nftSaleApiHandler;
 
-        public List<NftsDTO> NftsDTO;
-		public List<NftsSaleDTO> NftsSaleDTO;
+        public List<NftsDTO> NftDto;
+		public List<NftsSaleDTO> NftSaleDto;
 
-        [FromQuery(Name = "page")] public int Page { get; set; } = 1;
+        [FromQuery(Name = "page")] public int CurrentPage { get; set; } = 1;
 
-        private const int pageSize = 10;
-        public List<string> PageLink { get; set; } = new List<string>();
+        private const int PageSize = 10;
+        public List<string> PageLink { get; set; } = new();
         public DetailTokenModel()
         {
-            client = new HttpClient();
+	        this.client = new HttpClient();
         }
         public async Task<IActionResult> OnGetAsync(string? collection)
         {
-            NftApiHandler = $"GetTotalNftsByCollection/{collection}";
-			var responseTotalRecords = await client.GetAsync(NftApiUrl + NftApiHandler);
-			var dataTotalRecords = await responseTotalRecords.Content.ReadAsStringAsync();
+            this.nftApiHandler = $"GetTotalNftByCollection/{collection}";
+			var responseTotalRecords = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
+			var dataTotalRecords     = await responseTotalRecords.Content.ReadAsStringAsync();
 			var options = new JsonSerializerOptions
 			{
 				PropertyNameCaseInsensitive = true
 			};
 			var totalRecords = JsonSerializer.Deserialize<int>(dataTotalRecords, options);
-			int total = CalcPageCount(totalRecords);
+			var total = this.CalcPageCount(totalRecords);
 
-			if (Page < 1 || Page > total)
+			if (this.CurrentPage < 1 || this.CurrentPage > total)
 			{
-				return RedirectToPage("Error");
+				return this.RedirectToPage("Error");
 			}
 
-			PageLink page = new PageLink(pageSize);
-			PageLink = page.getLink(Page, totalRecords, "/DetailedToken/" + collection + "?");
+			var page = new PageLink(PageSize);
+			this.PageLink = page.getLink(this.CurrentPage, totalRecords, "/DetailedToken/" + collection + "?");
 
-			NftApiHandler = $"GetNftByCollection/{collection}/{Page}/{pageSize}";
-			var response = await client.GetAsync(NftApiUrl + NftApiHandler);
-			var data = await response.Content.ReadAsStringAsync();
+			this.nftApiHandler = $"GetNftByCollection/{collection}/{this.CurrentPage}/{PageSize}";
+			var response = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
+			var data     = await response.Content.ReadAsStringAsync();
 			
-			NftsDTO = JsonSerializer.Deserialize<List<NftsDTO>>(data, options).ToList();
+			this.NftDto = JsonSerializer.Deserialize<List<NftsDTO>>(data, options).ToList();
 
-            return Page();
+            return this.Page();
         }
 		private int CalcPageCount(int totalRecords)
 		{
-			int totalPage = totalRecords / pageSize;
+			var totalPage = totalRecords / PageSize;
 
-			if (totalRecords % pageSize != 0) totalPage++;
+			if (totalRecords % PageSize != 0) totalPage++;
 			return totalPage;
 		}
 	}

@@ -5,9 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
-builder.Services.AddSingleton<NftsService>();
-builder.Services.AddSingleton<NftsCollectionsService>();
-builder.Services.AddSingleton<NftsSaleService>();
+builder.Services.AddSingleton<NftService>();
+builder.Services.AddSingleton<NftCollectionsService>();
+builder.Services.AddSingleton<NftSaleService>();
 // Add services to the container.
 
 builder.Services.AddControllers();

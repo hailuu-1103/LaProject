@@ -5,14 +5,16 @@ using System.Text.Json;
 
 namespace LaClient.Pages
 {
+    using LaClient.Materials;
+
     public class ListedTokenModel : PageModel
     {
         private readonly ILogger<IndexModel> logger;
         private HttpClient client;
 
-        private const string NftCollectionApiUrl = "https://localhost:7042/api/NftsCollections/GetAllCollections";
+        private static readonly string NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
 
-        public List<NftsCollectionDTO> NftsCollectionDTO;
+        public List<NftsCollectionDTO>? NftsCollectionDto;
 
         public ListedTokenModel(ILogger<IndexModel> logger)
         {
@@ -28,8 +30,8 @@ namespace LaClient.Pages
             {
                 PropertyNameCaseInsensitive = true
             };
-            this.NftsCollectionDTO = JsonSerializer.Deserialize<List<NftsCollectionDTO>>(data, options);
-            return Page();
+            this.NftsCollectionDto = JsonSerializer.Deserialize<List<NftsCollectionDTO>>(data, options);
+            return this.Page();
         }
     }
 }

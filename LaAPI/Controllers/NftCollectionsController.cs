@@ -8,17 +8,17 @@ namespace LaAPI.Controllers
 {
     [Controller]
     [Route("api/[controller]")]
-    public class NftsCollectionsController : Controller
+    public class NftCollectionsController : Controller
     {
-        private readonly NftsCollectionsService nftsCollectionsService;
-        public NftsCollectionsController(NftsCollectionsService service)
+        private readonly NftCollectionsService nftCollectionsService;
+        public NftCollectionsController(NftCollectionsService service)
         {
-            this.nftsCollectionsService = service;
+            this.nftCollectionsService = service;
         }
 		[HttpGet("GetAllCollections")]
 		public async Task<ActionResult<List<NftsCollectionDTO>>> GetAllAsync()
 		{
-			var documents = await nftsCollectionsService.GetAllAsync();
+			var documents = await this.nftCollectionsService.GetAllAsync();
 
 			var results = new List<NftsCollectionDTO>();
 			// Map the BsonDocument array to NftsCollectionDto array
@@ -41,13 +41,13 @@ namespace LaAPI.Controllers
 				results.Add(dto);
 			}
 
-			return Ok(results.ToList());
+			return this.Ok(results.ToList());
 		}
 
 		[HttpGet("GetCollectionCount")]
 		public async Task<int> GetCollectionCount()
 		{
-			var documents = await nftsCollectionsService.GetAllAsync();
+			var documents = await this.nftCollectionsService.GetAllAsync();
 			
 			return 0;
 		}
