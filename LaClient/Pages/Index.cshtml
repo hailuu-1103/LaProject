@@ -9,163 +9,169 @@
 	}
 </style>
 <body>
-	<!-- CONTENT -->
-	<section id="content">
-		<!-- MAIN -->
-		<main>
-			<!-- Title -->
-			<div class="head-title">
-				<div class="left">
-					<h1>Dashboard</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="#">Dashboard</a>
-						</li>
-						<li><i class='bx bx-chevron-right'></i></li>
-						<li>
-							<a class="active" href="#">Collections</a>
-						</li>
-					</ul>
-				</div>
-				<a href="#" class="btn-download">
-					<i class='bx bxs-cloud-download'></i>
-					<span class="text">Download</span>
-				</a>
-			</div>
+<!-- CONTENT -->
+<section id="content">
+    <!-- MAIN -->
+    <main>
+        <!-- Title -->
+        <div class="head-title">
+            <div class="left">
+                <h1>Dashboard</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li>
+                        <i class='bx bx-chevron-right'></i>
+                    </li>
+                    <li>
+                        <a class="active" href="#">Collections</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="#" class="btn-download">
+                <i class='bx bxs-cloud-download'></i>
+                <span class="text">Download</span>
+            </a>
+        </div>
 
-			<!-- Overall infor -->
-			<ul class="box-info">
-				<li>
-					<i class='bx bxs-calendar-check'></i>
-					<span class="text">
-						<h3>1020</h3>
-						<p>Projects</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-group'></i>
-					<span class="text">
-						<h3>39.072</h3>
-						<p>Unique Owners</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bxs-dollar-circle'></i>
-					<span class="text">
-						<h3>$9.650.435</h3>
-						<p>Total Sales</p>
-					</span>
-				</li>
-			</ul>
+        <!-- Overall infor -->
+        <ul class="box-info">
+            <li>
+                <i class='bx bxs-calendar-check'></i>
+                <span class="text">
+                    <h3>1020</h3>
+                    <p>Projects</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-group'></i>
+                <span class="text">
+                    <h3>39.072</h3>
+                    <p>Unique Owners</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-dollar-circle'></i>
+                <span class="text">
+                    <h3>$9.650.435</h3>
+                    <p>Total Sales</p>
+                </span>
+            </li>
+        </ul>
 
-			<!-- Main data -->
-			<div class="table-data display-table">
-				<div class="order">
-					<div class="head">
-						<div class="head">
-							<h3>Top Ranking</h3>
-							 <i class='bx bx-search'></i>
-							<i class='bx bx-filter'></i> 
-						</div>
-						<i class='bx bx-search'></i>
-						<i class='bx bx-filter'></i>
-					</div>
-			
-					<table>
-						<thead>
-							<tr>
-								<th>Project</th>
-								<th>Ranking</th>
-								<th>Score</th>
-							</tr>
-						</thead>
-						<tbody>
-							@for(var i = 0; i < Model.NftCollectionDto.Count; i++)
-							{
-								var nftModel = Model.NftCollectionDto[i];
-								if(i < 5)
-								{
-									<tr>
-									<td>
-										<img src="@nftModel.image_url">
-											<a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
-									</td>
-									<td>@(i+1)</td>
-									<td><span class="status pending">100</span></td>
-								</tr>
-								}
-							}
-						</tbody>
-					</table>
-				</div>
-				<div class="order">
-					<div class="head">
-						<h3>Top Ranking</h3>
-						<!-- <i class='bx bx-search'></i>
-						<i class='bx bx-filter'></i> -->
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th>Project</th>
-								<th>Ranking</th>
-								<th>Score</th>
-							</tr>
-						</thead>
-						<tbody>
-							@for (var i = 0; i < Model.NftCollectionDto.Count; i++)
-							{
-								var nftModel = @Model.NftCollectionDto[i];
-								if (i >= 5)
-								{
-											<tr>
-											<td>
-												<img src="@nftModel.image_url">
-											<a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
-											</td>
-											<td>@(i+1)</td>
-											<td><span class="status pending">100</span></td>
-										</tr>
-								}
-							}
-						</tbody>
-					</table>
-				</div>
-				<!-- <div class="todo">
-					<div class="head">
-						<h3>Todos</h3>
-						<i class='bx bx-plus'></i>
-						<i class='bx bx-filter'></i>
-					</div>
-					<ul class="todo-list">
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded'></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded'></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded'></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded'></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded'></i>
-						</li>
-					</ul>
-				</div> -->
-				<a asp-page="/ListedToken" class="btn-viewall">
-					<span class="text">View All Listed Project</span>
-				</a>
-			</div>
-		</main>
-		<!-- MAIN -->
-	</section>
-	<!-- CONTENT -->
+        <!-- Main data -->
+        <div class="table-data display-table">
+            <div class="order">
+                <div class="head">
+                    <div class="head">
+                        <h3>Top Ranking</h3>
+                        <i class='bx bx-search'></i>
+                        <i class='bx bx-filter'></i>
+                    </div>
+                    <i class='bx bx-search'></i>
+                    <i class='bx bx-filter'></i>
+                </div>
+
+                <table style="margin-top: -20px">
+                    <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Ranking</th>
+                        <th>Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for (var i = 0; i < Model.NftCollectionDto.Count; i++)
+                    {
+                        var nftModel = Model.NftCollectionDto[i];
+                        if (i < 5)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@nftModel.image_url">
+                                    <a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
+                                </td>
+                                <td>@(i + 1)</td>
+                                <td>
+                                    <span class="status pending">100</span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <div class="order">
+                <div class="head">
+                    <h3>Top Ranking</h3>
+                    <!-- <i class='bx bx-search'></i>
+                    <i class='bx bx-filter'></i> -->
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Ranking</th>
+                        <th>Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for (var i = 0; i < Model.NftCollectionDto.Count; i++)
+                    {
+                        var nftModel = @Model.NftCollectionDto[i];
+                        if (i >= 5)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@nftModel.image_url">
+                                    <a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
+                                </td>
+                                <td>@(i + 1)</td>
+                                <td>
+                                    <span class="status pending">100</span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <!-- <div class="todo">
+                <div class="head">
+                    <h3>Todos</h3>
+                    <i class='bx bx-plus'></i>
+                    <i class='bx bx-filter'></i>
+                </div>
+                <ul class="todo-list">
+                    <li class="completed">
+                        <p>Todo List</p>
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                    <li class="completed">
+                        <p>Todo List</p>
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                    <li class="not-completed">
+                        <p>Todo List</p>
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                    <li class="completed">
+                        <p>Todo List</p>
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                    <li class="not-completed">
+                        <p>Todo List</p>
+                        <i class='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                </ul>
+            </div> -->
+            <a asp-page="/ListedToken" class="btn-viewall">
+                <span class="text">View All Listed Project</span>
+            </a>
+        </div>
+    </main>
+    <!-- MAIN -->
+</section>
+<!-- CONTENT -->
 </body>

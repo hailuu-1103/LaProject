@@ -1,5 +1,5 @@
 ﻿@page
-@model LaClient.Pages.ListedTokenModel
+@model ListedTokenModel
 @{
 }
 
@@ -40,11 +40,13 @@
         <form action="#">
             <div class="form-input own-form-input">
                 <input type="search" id="searchInput" placeholder="Search...">
-                <button type="submit" class="search-btn"><i class="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i></button>
+                <button type="submit" class="search-btn">
+                    <i class="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i>
+                </button>
             </div>
         </form>
     </nav>
-    
+
     <!-- MAIN -->
     <main class="own-main">
         <!-- Main data -->
@@ -52,15 +54,15 @@
             <div class="order">
                 <table>
                     <tbody>
-                        @foreach (var nftsCollection in Model.NftsCollectionDto)
-                        {
-                            <tr>
-                                <td>
-                                    <img src="@nftsCollection.image_url">
-                                    <a asp-page="DetailedCollection" asp-route-collection="@nftsCollection.id">@nftsCollection.name</a>
-                                </td>
-                            </tr>
-                        }
+                    @foreach (var nftsCollection in Model.NftsCollectionDto)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@nftsCollection.image_url">
+                                <a asp-page="DetailedCollection" asp-route-collection="@nftsCollection.id">@nftsCollection.name</a>
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
@@ -68,26 +70,25 @@
     </main>
 </section>
 
-@section Scripts {
-    <script>
-        function searchNftsCollection() {
-            var input = document.getElementById("searchInput");
-            var filter = input.value.toLowerCase();
-            var rows = document.getElementsByTagName("tr");
+<script>
+    // Get the search input element
+    const searchInput = document.getElementById('searchInput');
 
-            for (var i = 0; i < rows.length; i++) {
-                var nameCell = rows[i].getElementsByTagName("p")[0];
-                if (nameCell) {
-                    var name = nameCell.textContent.toLowerCase();
-                    if (name.includes(filter)) {
-                        rows[i].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
-                    }
-                }
+    // Add event listener for input changes
+    searchInput.addEventListener('input', function() {
+        const searchValue = searchInput.value.toLowerCase();
+        const tableRows = document.querySelectorAll('.table-data tbody tr');
+
+        // Iterate through each row
+        for (let i = 0; i < tableRows.length; i++) {
+            const collectionName = tableRows[i].querySelector('a').innerText.toLowerCase();
+
+            // Show or hide the row based on search results
+            if (collectionName.includes(searchValue)) {
+                tableRows[i].style.display = '';
+            } else {
+                tableRows[i].style.display = 'none';
             }
         }
-
-        document.getElementById("searchInput").addEventListener("input", searchNftsCollection);
-    </script>
-}
+    });
+</script>

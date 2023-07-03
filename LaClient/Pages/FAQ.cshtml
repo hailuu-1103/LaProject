@@ -1,5 +1,5 @@
 ﻿@page
-@model LaClient.Pages.FAQ
+@model FAQ
 
 @{
     Layout = "Shared/_Layout";
@@ -205,7 +205,7 @@
     </div>
     <div id="faqCollapse-4" class="collapse" aria-labelledby="faqHeading-4" data-parent="#accordion">
         <div class="card-body">
-            <img src="img/4.png" class="img-thumbnail" alt="Workflows of NFT Systems"/>
+            <img src="img/4.png" class="img-fluid" alt="Workflows of NFT Systems"/>
             <p>
             NFT được chạy trên hệ thống chuỗi khối của blockchain, một sổ cái kỹ thuật phân tán công khai, với tác dụng dùng để ghi lại các giao dịch. Để tạo ra được token NFTs thì cũng giống với việc tạo ra token ERC20, chỉ khác ở tiêu chuẩn sử dụng ở trong hợp đồng thông minh. Vậy đầu tiên sẽ cần có hợp đồng thông minh (nên sử dụng các tiêu chuẩn phổ biến của NFTs như ERC721, ERC1155, …).
             Trong hợp đồng thông minh sẽ định nghĩa các thuộc tính và phương thức của NFTs, đặc biệt sẽ có hàm mint để đúc ra một NFT với tokenId riêng biệt. Đầu vào của hàm mint này có thể linh hoạt thay đổi nhưng thường sẽ bao gồm: name, symbol, tokenURI là những dữ liệu người chế tạo phải chuẩn bị trước khi muốn đúc một NFT. Trong đó, tokenURI sẽ là đường dẫn tới siêu dữ liệu đại diện cho vật phẩm hữu hình của NFT (Nên được lưu thông qua giao thức IPFS), có thể kể đến như [13]:
@@ -231,16 +231,18 @@
             <div class="card-body">
                 <p> Có 2 chuẩn nổi bật, … => Từng cái khác nhau như nào … rồi đi vào chi tiết.
                 ERC721 [6]: Mỗi token ERC721 là duy nhất và được phân biệt với các token khác. Đặc biệt, mỗi token mang một biến uint256 là tokenId, cặp (contract address, tokenId) là duy nhất trên toàn mạng blockchain [1 - page 8]. tokenId còn là đầu vào khi gọi trực tiếp và contract để lấy ra các thông tin cụ thể về nft như images, tokenURI, … Ngoài ra, chuẩn ERC721 có 2 hàm điển hình là ownerOf(uint256 _tokenId) để biết được người sở hữu của một token và transferFrom(address _from, address _to, uint256 tokenId) để chuyển giao quyền sở hữu của token ERC721. Hàm transferFrom sẽ cần chữ ký xác nhận của
-                người gửi.
-                                <p/>
-<img src="img/5.png" alt="Algorithm 1: NFT Standard Interfaces"/>
+                người gửi
+                <p/>
+                <img src="img/5.png" class="img-fluid" alt="Algorithm1 NFT Standard Interfaces"/>
                 <p>
                     ERC1155 (Multi Token Standard) [7]:
                     Chuẩn ERC1155 được mở rộng kết hợp từ chuẩn ERC20 & ERC721, (khác erc721 như nào, các ý lặt vặt mô tả sau) các thuộc tính của 1 token có thể bao gồm thông tin tuỳ chọn như metadata, lock-time, date, supply, … [1]. Các tokenId được xác định ở đây không đại diện cho một tài sản duy nhất mà là các nhóm tài sản. [5]
 
                     Ví dụ: một ID có thể đại diện cho "kiếm" và một chiếc ví có thể sở hữu 1.000 thanh kiếm.
                     Qua đó, có thể nhận thấy ERC1155 cung cấp một tập hợp siêu chức năng của ERC721. Tức là khi sử dụng tiêu chuẩn ERC1155, chỉ cần có tạo ra một NFT với tokenId và đặt số lượng là 1 cho chúng thì đã có thể tạo ra 1 NFT giống với chuẩn ERC721. Do những ưu điểm này nên ERC1155 ngày càng được ưa chuộng sử dụng.
-
+                </p>
+                <img src="img/6.png" class="img-fluid" alt="NFT-related Token Standards"/>
+                <p>
                     ERC5114 (Soulbound Token): Được đề xuất bởi Vitalik Buterin, SBTs là tokens không thể chuyển nhượng, đại diện cho danh tính của một người sử dụng công nghệ chuỗi khối. SBTs có thể sử dụng trong hồ sơ y tế, lịch sử công việc và bất kỳ loại thông tin nào tạo nên một người hoặc tổ chức. Ví lưu giữ hoặc phát hành các bản ghi này được gọi là “Souls”. [8]
                     Định hướng của V.Buterin khi tạo ra Soulbound Token là để tạo ra một Xã hội phi tập trung (DeSoc) gồm nhiều linh hồn (Souls, tương đương với các địa chỉ ví) sở hữu các soulbound tokens khác nhau, từ đó hình thành nên một bối cảnh xã hội với các danh tính dễ xác thực trên mạng chuỗi khối [9]
                     ERC864 (Divisible NFTs): Tiêu chuẩn này ra đời giải quyết vấn để đa sở hữu của 1 NFT. Khi mà NFT theo tiêu chuẩn ERC721 thông thường chỉ được sở hữu bởi duy nhất 1 địa chỉ, thì theo tiêu chuẩn ERC864, NFT có thể chia nhỏ thành các phần bằng nhau và được sở hữu bởi các địa chỉ khác nhau. Tiêu chuẩn này vẫn đang trong thời gian thử nghiệm và dự định sẽ có thể giải quyết một số bài toán riêng biệt. [10]
@@ -274,44 +276,73 @@
             <div class="mb-0">
                 <h5 class="faq-title" data-bs-toggle="collapse" data-bs-target="#faqCollapse-7" aria-expanded="false" aria-controls="faqCollapse-7">
                     <span class="badge">7</span> Mua/Bán/Cho Tặng NFTs như thế nào?
-
                 </h5>
             </div>
         </div>
         <div id="faqCollapse-7" class="collapse" aria-labelledby="faqHeading-7" data-parent="#accordion">
             <div class="card-body">
-                <p>NFT là tài sản kỹ thuật số, vì vậy nó cũng thường được giao dịch bằng tiền kỹ thuật số, và cũng đôi khi có thể là USD($).
-                Vậy trước hết:
-                Để mua NFTs, cần phải sở hữu tiền kỹ thuật số mà loại NFT đó cho phép mua
-                Để bán NFTs, bạn phải là chủ sở hữu của 1 NFT.
-                Hướng dẫn mua NFTs trên Rarible:
-                Bước 1: truy cập Rarible (https://rarible.com/)
-                Bước 2: Nhấn “Connect Wallet” và đăng nhập vào ví
-                Bước 3: Vào Explore/Collections, chọn NFTs bạn muốn mua
-                Bước 4: Sau khi kéo xuống, bạn sẽ thấy rất nhiều NFTs của Collections đó đang được treo bán. Ví dụ hình dưới là về Collections BoredApeYachtClub. Chọn 1 NFT bạn mong muốn để thực hiện mua hoặc thêm vào giỏ hàng để mua sau.
-                Bước 5: Xác nhận giao dịch. Trong trường hợp ví của bạn đủ tiền để mua NFTs, một pop-up của metamask sẽ hiện ra để bạn xác nhận giao dịch. KYC
-                Sau khi hoàn thành, số dư trong ví của bạn được cập nhận và chủ sở hữu NFT cũng sẽ được chuyển giao cho địa chỉ ví của bạn, bạn có thể kiểm tra bằng cách vào mục “Owned” trong phần “Collections” cá nhân.
-                Hướng dẫn tạo NFT:
-                Bước 1: Chọn Create/NFT
-                Bước 2: Chọn mạng và loại tuỳ theo mục đích (Ví dụ Ethereum -> Single)
-                Bước 3: Cập các thông tin về NFTs (image, name, description, …)
-                Bước 4: Chọn “Create Item”
-                Sau đó “Confirm” giao dịch trên Metamask pop-up. Sau khi tạo 1 NFT cũng giống như việc bạn mua 1 NFT và có thể xem trong mục “Owned”
-                Ngoài ra, việc Mint một NFTs có thể diễn ra bằng cách gửi transaction trực tiếp đến smartcontract, việc làm này sẽ an toàn hơn việc Mint từ website trong trường hợp website chưa được kiểm duyệt an toàn.
+                <p>
+                    NFT là tài sản kỹ thuật số, vì vậy nó cũng thường được giao dịch bằng tiền kỹ thuật số, và cũng đôi khi có thể là USD($).
+                    Vậy trước hết:
+                    Để mua NFTs, cần phải sở hữu tiền kỹ thuật số mà loại NFT đó cho phép mua
+                    Để bán NFTs, bạn phải là chủ sở hữu của 1 NFT.
+                    Hướng dẫn mua NFTs trên Rarible:
+                    Bước 1: truy cập Rarible (https://rarible.com/)
+                    Bước 2: Nhấn “Connect Wallet” và đăng nhập vào ví
+                </p>
+                <img src="img/7.png" class="img-fluid" alt="Connect wallet"/>
+                <p>
+                    Bước 3: Vào Explore/Collections, chọn NFTs bạn muốn mua
+                </p>
+                <img src="img/7.1.png" class="img-fluid" alt="NFT List"/>
+                <p>
+                    Bước 4: Sau khi kéo xuống, bạn sẽ thấy rất nhiều NFTs của Collections đó đang được treo bán. Ví dụ hình dưới là về Collections BoredApeYachtClub. Chọn 1 NFT bạn mong muốn để thực hiện mua hoặc thêm vào giỏ hàng để mua sau.
+                </p>
+                <img src="img/7.2.png" class="img-fluid" alt="Collection list"/>
+                <p>
+                    Bước 5: Xác nhận giao dịch. Trong trường hợp ví của bạn đủ tiền để mua NFTs, một pop-up của metamask sẽ hiện ra để bạn xác nhận giao dịch. KYC
 
-
+                </p>
+                <img src="img/7.3.png" class="img-fluid" alt="Finish transaction"/>
+                <p>
+                    Sau khi hoàn thành, số dư trong ví của bạn được cập nhận và chủ sở hữu NFT cũng sẽ được chuyển giao cho địa chỉ ví của bạn, bạn có thể kiểm tra bằng cách vào mục “Owned” trong phần “Collections” cá nhân.
+                </p>
+                <p>
+                    Hướng dẫn tạo NFT:
+                    Bước 1: Chọn Create/NFT
+                </p>
+                <img src="img/7.4.png" class="img-fluid"/>
+                <p>
+                    Bước 2: Chọn mạng và loại tuỳ theo mục đích (Ví dụ Ethereum -> Single)
+                </p>
+                <img src="img/7.5.png" class="img-fluid"/>
+                <p>
+                    Bước 3: Cập các thông tin về NFTs (image, name, description, …)
+                </p>
+                <img src="img/7.6.png" class="img-fluid"/>
+                <p>
+                </p>
+                <img src="img/7.7.png" class="img-fluid"/>
+                <p>
+                    Bước 4: Chọn “Create Item”
+                </p>
+                <img src="img/7.8.png" class="img-fluid"/>
+                <p>
+                    Sau đó “Confirm” giao dịch trên Metamask pop-up. Sau khi tạo 1 NFT cũng giống như việc bạn mua 1 NFT và có thể xem trong mục “Owned”
+                    Ngoài ra, việc Mint một NFTs có thể diễn ra bằng cách gửi transaction trực tiếp đến smartcontract, việc làm này sẽ an toàn hơn việc Mint từ website trong trường hợp website chưa được kiểm duyệt an toàn.
+                </p>
             </div>
         </div>
     </div>
     <div class="card">
-        <div class="card-header" id="faqHeading-6">
+        <div class="card-header" id="faqHeading-8">
             <div class="mb-0">
-                <h5 class="faq-title" data-bs-toggle="collapse" data-bs-target="#faqCollapse-6" aria-expanded="false" aria-controls="faqCollapse-6">
+                <h5 class="faq-title" data-bs-toggle="collapse" data-bs-target="#faqCollapse-8" aria-expanded="false" aria-controls="faqCollapse-6">
                     <span class="badge">8</span> NFTs và các thông tin metadata thực sự được lưu trữ như thế nào?
                 </h5>
             </div>
         </div>
-        <div id="faqCollapse-6" class="collapse" aria-labelledby="faqHeading-6" data-parent="#accordion">
+        <div id="faqCollapse-8" class="collapse" aria-labelledby="faqHeading-8" data-parent="#accordion">
             <div class="card-body">
                 <p>Các sản phẩm NFT được thúc đẩy bởi mục tiêu bảo tồn nghệ thuật kỹ thuật số, nên việc xác định dữ liệu nào để tái tạo lại tác phẩm nghệ thuật là cần thiết. Trước mắt, có thể phân biệt giữa ba phương pháp lưu trữ chính: Lưu trữ đám mây, lưu trữ trên chuỗi và hệ thống lưu trữ phi tập trung (IPFS và Arweave). Các thuộc tính của chúng liên quan đến tính toàn vẹn và tính sẵn có rất khác nhau:
                 - Lưu trữ đám mây không cung cấp đảm bảo cứng - dữ liệu được lưu trữ có thể bị đột biến hoặc di chuyển (lại) bất cứ lúc nào.
@@ -336,14 +367,14 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-header" id="faqHeading-6">
+        <div class="card-header" id="faqHeading-9">
             <div class="mb-0">
-                <h5 class="faq-title" data-bs-toggle="collapse" data-bs-target="#faqCollapse-6" aria-expanded="false" aria-controls="faqCollapse-6">
+                <h5 class="faq-title" data-bs-toggle="collapse" data-bs-target="#faqCollapse-9" aria-expanded="false" aria-controls="faqCollapse-6">
                     <span class="badge">9</span> Các rủi ro nào có thể xảy ra với tài sản NFTs của bạn? [1]
                 </h5>
             </div>
         </div>
-        <div id="faqCollapse-6" class="collapse" aria-labelledby="faqHeading-6" data-parent="#accordion">
+        <div id="faqCollapse-9" class="collapse" aria-labelledby="faqHeading-9" data-parent="#accordion">
             <div class="card-body">
                 <p>Giả mạo (Spoofing): Spoofing là một hình thức mạo danh một thực thể khác trên hệ thống (con người/máy tính). Khii một người dùng tương tác để mint hoặc sell NFT, kẻ đánh cắp có thể khai phá lỗ hỏng về quyền xác thực hoặc đánh cắp khoá bí mật của người dùng để chuyển quyền sở hữu NFT một cách bất hợp pháp
                 => Giải pháp: Kiểm tra tính chính thức cho hợp đồng thông minh/trang web mà bạn muốn sử dụng và nên có ví lạnh để bảo vệ khoá bí mật.
