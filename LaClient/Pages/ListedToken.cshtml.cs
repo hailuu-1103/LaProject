@@ -1,29 +1,24 @@
-using LaAPI.DTO;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Text.Json;
-
 namespace LaClient.Pages
 {
+    using System.Text.Json;
+    using LaAPI.DTO;
     using LaClient.Materials;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
 
     public class ListedTokenModel : PageModel
     {
-        private HttpClient client;
-
-        private static readonly string NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
+        private static readonly string     NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
+        private                 HttpClient client;
 
         public List<NftsCollectionDTO>? NftsCollectionDto;
 
-        public ListedTokenModel()
-        {
-            this.client = new HttpClient();
-        }
+        public ListedTokenModel() { this.client = new HttpClient(); }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var response = await client.GetAsync(NftCollectionApiUrl);
-            var data = await response.Content.ReadAsStringAsync();
+            var response = await this.client.GetAsync(NftCollectionApiUrl);
+            var data     = await response.Content.ReadAsStringAsync();
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true

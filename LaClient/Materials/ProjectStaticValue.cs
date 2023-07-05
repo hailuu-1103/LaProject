@@ -1,6 +1,6 @@
 ﻿namespace LaClient.Materials;
 
-public class ProjectStaticValue
+public static class ProjectStaticValue
 {
-    public static string Host = "https://localhost:7042";
+    public const string Host = "https://localhost:7042";
 }

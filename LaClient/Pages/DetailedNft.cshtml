@@ -1,0 +1,98 @@
+﻿@page
+@model DetailedNft
+
+@{
+    Layout = "Shared/_Layout";
+}
+<style>
+    .nft-item{
+        margin-left: 280px;
+        margin-top: 20px;
+    }
+</style>
+<div class="container nft-item">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-fluid" style="width: 60vh" src="@Model.NftDto.image_url" alt=""/>
+        </div>
+        <div class="col-md-8">
+            <p style="font-family: 'JetBrains Mono ExtraBold'; font-size: 25px; font-weight: bold">
+                @Model.NftDto.collection_name #@Model.NftDto.token_id
+            </p>
+        </div>
+    </div>
+    &nbsp;
+    &nbsp;
+    <table class="table table-bordered">
+
+        <thead>
+        <tr>
+            <th><i class="fa-regular fa-cart-shopping"></i>Event</th>
+            <th>Price</th>
+            <th>USD Price</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var nftSaleDto in Model.NftSaleDto!)
+        {
+            <tr>
+                <td>Sale</td>
+                <td>@nftSaleDto.price @nftSaleDto.unit_token</td>
+                <td>@($"{nftSaleDto.usd_price:0.00}")</td>
+                <td>
+                    <span class="address" data-address="@nftSaleDto.from">@nftSaleDto.from.Substring(2, 6).ToUpper()</span>
+                </td>
+                <td>
+                    <span class="address" data-address="@nftSaleDto.to">@nftSaleDto.to.Substring(2, 6).ToUpper()</span>
+                </td>
+                <td>@nftSaleDto.time</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<script>
+    // Add click event listener to address spans
+    const addresses = document.getElementsByClassName("address");
+    for (var i = 0; i < addresses.length; i++) {
+        addresses[i].addEventListener("click", function () {
+            const address = this.getAttribute("data-address");
+            copyToClipboard(address);
+        });
+    }
+
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        alert("Address copied to clipboard: " + text);
+    }
+   
+   // Function to convert date to relative time
+    function getRelativeTime(dateString) {
+        var date = new Date(dateString);
+        var now = new Date();
+        var diff = now - date;
+
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        if (days > 0) {
+            return days + " day" + (days === 1 ? "" : "s") + " ago";
+        } else {
+            return "Today";
+        }
+    }
+
+    // Update timestamp to relative time
+    var timestamps = document.getElementsByClassName("timestamp");
+    for (var i = 0; i < timestamps.length; i++) {
+        timestamps[i].innerText = getRelativeTime(timestamps[i].innerText);
+    }
+</script>

@@ -140,7 +140,7 @@
                                         <span class="badge bg-danger">Sale</span>
                                     </div>
                                     <div class="product-media">
-                                        <a href="#">
+                                        <a asp-page="/DetailedNft" asp-route-collection="@nftsDto.slug", asp-route-id="@nftsDto.token_id">
                                             <img class="img-fluid"
                                                  src="@nftsDto.image_url">
                                         </a>
