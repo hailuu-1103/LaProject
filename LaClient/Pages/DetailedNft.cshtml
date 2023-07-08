@@ -16,7 +16,7 @@
             <img class="img-fluid" style="width: 60vh" src="@Model.NftDto.image_url" alt=""/>
         </div>
         <div class="col-md-8">
-            <p style="font-family: 'JetBrains Mono ExtraBold'; font-size: 25px; font-weight: bold">
+            <p style="font-family: 'JetBrains Mono ExtraBold',sans-serif; font-size: 25px; font-weight: bold">
                 @Model.NftDto.collection_name #@Model.NftDto.token_id
             </p>
         </div>
@@ -87,6 +87,7 @@
             return days + " day" + (days === 1 ? "" : "s") + " ago";
         } else {
             return "Today";
+            
         }
     }
 

@@ -2,6 +2,7 @@ namespace LaClient.Pages
 {
     using System.Text.Json;
     using LaAPI.DTO;
+    using LaClient.DTO;
     using LaClient.Materials;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,12 +16,12 @@ namespace LaClient.Pages
 
         private string nftApiHandler;
 
-        public List<NftsDTO> NftDto;
+        public List<NftDto> NftDto;
 
         public DetailTokenModel()
         {
             this.client = new HttpClient();
-            this.NftDto = new List<NftsDTO>();
+            this.NftDto = new List<NftDto>();
             new List<NftsSaleDTO>();
         }
 
@@ -51,7 +52,7 @@ namespace LaClient.Pages
             var response = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
             var data     = await response.Content.ReadAsStringAsync();
 
-            this.NftDto = JsonSerializer.Deserialize<List<NftsDTO>>(data, options)!.ToList();
+            this.NftDto = JsonSerializer.Deserialize<List<NftDto>>(data, options)!.ToList();
 
             return this.Page();
         }

@@ -131,18 +131,18 @@
             <div class="col-12">
                 <!-- Navigation bar content -->
                 <div class="row g-3 g-lg-4">
-                    @foreach (var nftsDto in Model.NftDto)
+                    @foreach (var nftDto in Model.NftDto)
                     {
                         <div class="col-4 col-lg-3">
                             <div class="product-card-10">
                                 <div class="product-card-image">
-                                    <div class="badge-ribbon">
-                                        <span class="badge bg-danger">Sale</span>
-                                    </div>
+                                    @* <div class="badge-ribbon"> *@
+                                    @*     <span class="badge bg-danger">Sale</span> *@
+                                    @* </div> *@
                                     <div class="product-media">
-                                        <a asp-page="/DetailedNft" asp-route-collection="@nftsDto.slug", asp-route-id="@nftsDto.token_id">
+                                        <a asp-page="/DetailedNft" asp-route-collection="@nftDto.slug", asp-route-id="@nftDto.token_id">
                                             <img class="img-fluid"
-                                                 src="@nftsDto.image_url">
+                                                 src="@nftDto.image_url">
                                         </a>
                                     </div>
                                 </div>
@@ -151,14 +151,12 @@
                                         <i class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i class="bi bi-star"></i>
                                     </div>
                                     <h6 class="product-title">
-                                        <a href="#">@nftsDto.token_id</a>
+                                        <a asp-page="/DetailedNft" asp-route-collection="@nftDto.slug" asp-route-id="@nftDto.token_id">Token id: @nftDto.token_id</a>
                                     </h6>
-                                    @* <div class="product-price">
-                                        <span class="text-primary">$28.<small>50</small></span>
+                                    <div class="product-price">
+                                        <span class="text-primary" style="font-size: medium">Rarity: @nftDto.nft_rarity.ToString("F2")</span>
+                                        <span class="text-primary" style="font-size: medium">Return: @(Math.Round(nftDto.nft_return * 100, 2))%</span>
                                     </div>
-                                    <div>
-                                        <span class="text-primary">Last sell: 50</span>
-                                    </div>*@
                                 </div>
                             </div>
                         </div>

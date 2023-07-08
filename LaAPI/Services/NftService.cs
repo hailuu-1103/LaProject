@@ -8,8 +8,8 @@
 
     public class NftService
     {
-        private readonly Dictionary<string, List<NftsDTO>> cachedNftDto = new();
-        private readonly IMongoCollection<BsonDocument>    nft;
+        private readonly Dictionary<string, List<NftDto>> cachedNftDto = new();
+        private readonly IMongoCollection<BsonDocument>   nft;
         public NftService(IOptions<MongoDBSettings> mongoDbSettings)
         {
             var client   = new MongoClient(mongoDbSettings.Value.ConnectionURI);
@@ -18,7 +18,7 @@
             database.GetCollection<BsonDocument>(mongoDbSettings.Value.NftsSalesName);
         }
 
-        public Task<List<NftsDTO>> GetNftByCollectionAsync(string collection, int pageNumber, int pageSize)
+        public Task<List<NftDto>> GetNftByCollectionAsync(string collection, int pageNumber, int pageSize)
         {
             return Task.FromResult(this.cachedNftDto[collection].Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList());
         }
@@ -30,7 +30,9 @@
             var projection = Builders<BsonDocument>.Projection
                 .Include("image_url")
                 .Include("_id.token_id")
-                .Include("_id.slug");
+                .Include("_id.slug")
+                .Include("nft_rarity")
+                .Include("nft_return");
 
             var options = new FindOptions<BsonDocument>
             {
@@ -40,14 +42,32 @@
             var cursor = await this.nft.FindAsync(filter, options);
 
             var documents = await cursor.ToListAsync();
-            var listNftDto = documents.Select(document => new NftsDTO()
-                { image_url = document.GetValue("image_url").AsString, token_id = document["_id"]["token_id"].AsString, slug = document["_id"]["slug"].AsString }).ToList();
+            var listNftDto = documents.Select(document => new NftDto
+            {
+                image_url  = document.GetValue("image_url").AsString,
+                token_id   = document["_id"]["token_id"].AsString,
+                slug       = document["_id"]["slug"].AsString,
+                nft_rarity = document["nft_rarity"].AsDouble,
+                nft_return = this.GetNftReturn(document, "nft_return")
+            }).ToList();
 
             this.cachedNftDto.Add(collection, listNftDto);
 
 
             return this.cachedNftDto[collection].Count;
         }
-        public async Task<NftsDTO> GetNftByCollectionAndId(string collection, string id) { return this.cachedNftDto[collection].FirstOrDefault(dto => dto.token_id.Equals(id))!; }
+        public async Task<NftDto> GetNftByCollectionAndId(string collection, string id) { return this.cachedNftDto[collection].FirstOrDefault(dto => dto.token_id.Equals(id))!; }
+        private double GetNftReturn(BsonDocument document, string fieldName)
+        {
+            if (document.Contains(fieldName))
+            {
+                var fieldValue = document[fieldName];
+                if (fieldValue.IsInt32) return Convert.ToDouble(fieldValue.AsInt32);
+
+                if (fieldValue.IsDouble) return fieldValue.AsDouble;
+            }
+
+            return 0;
+        }
     }
 }

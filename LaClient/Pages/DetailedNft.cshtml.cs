@@ -2,6 +2,7 @@
 
 using System.Text.Json;
 using LaAPI.DTO;
+using LaClient.DTO;
 using LaClient.Materials;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,7 +19,7 @@ public class DetailedNft : PageModel
     private                 JsonSerializerOptions? options = new() { PropertyNameCaseInsensitive = true };
 
     public DetailedNft() { this.client = new HttpClient(); }
-    public NftsDTO            NftDto     { get; set; }
+    public NftDto             NftDto     { get; set; }
     public List<NftsSaleDTO>? NftSaleDto { get; set; } = new();
     public async Task<IActionResult> OnGetAsync([FromQuery] string collection, [FromQuery] string id)
     {
@@ -28,13 +29,13 @@ public class DetailedNft : PageModel
         this.NftApiHandler = "GetNftByCollectionAndId" + "/" + collection + "/" + id;
         var nftResponse = await this.client.GetAsync(NftApiUrl + this.NftApiHandler);
         var nftData     = await nftResponse.Content.ReadAsStringAsync();
-        var nft         = JsonSerializer.Deserialize<NftsDTO>(nftData, this.options);
+        var nft         = JsonSerializer.Deserialize<NftDto>(nftData, this.options);
 
         // Get response from NftCollection
         var collectionResponse = await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);
         var collectionData     = await collectionResponse.Content.ReadAsStringAsync();
         var nftCollection      = JsonSerializer.Deserialize<NftsCollectionDTO>(collectionData, this.options);
-        this.NftDto = new NftsDTO { slug = nft!.slug, image_url = nft.image_url, token_id = nft.token_id, collection_name = nftCollection!.name };
+        this.NftDto = new NftDto { slug = nft!.slug, image_url = nft.image_url, token_id = nft.token_id, collection_name = nftCollection!.name };
 
 
         this.NftSaleApiHandler = "GetNftSaleByCollection" + "/" + this.NftDto.slug + "/" + this.NftDto.token_id;
