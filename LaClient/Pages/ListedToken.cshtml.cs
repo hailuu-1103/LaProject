@@ -11,7 +11,7 @@ namespace LaClient.Pages
         private static readonly string     NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/GetAllCollections";
         private                 HttpClient client;
 
-        public List<NftsCollectionDTO>? NftsCollectionDto;
+        public List<NftCollectionDTO>? NftsCollectionDto;
 
         public ListedTokenModel() { this.client = new HttpClient(); }
 
@@ -23,7 +23,7 @@ namespace LaClient.Pages
             {
                 PropertyNameCaseInsensitive = true
             };
-            this.NftsCollectionDto = JsonSerializer.Deserialize<List<NftsCollectionDTO>>(data, options);
+            this.NftsCollectionDto = JsonSerializer.Deserialize<List<NftCollectionDTO>>(data, options);
             return this.Page();
         }
     }

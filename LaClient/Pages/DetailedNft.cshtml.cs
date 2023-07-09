@@ -34,8 +34,11 @@ public class DetailedNft : PageModel
         // Get response from NftCollection
         var collectionResponse = await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);
         var collectionData     = await collectionResponse.Content.ReadAsStringAsync();
-        var nftCollection      = JsonSerializer.Deserialize<NftsCollectionDTO>(collectionData, this.options);
-        this.NftDto = new NftDto { slug = nft!.slug, image_url = nft.image_url, token_id = nft.token_id, collection_name = nftCollection!.name };
+        var nftCollection      = JsonSerializer.Deserialize<NftCollectionDTO>(collectionData, this.options);
+        this.NftDto = new NftDto
+        {
+            slug = nft!.slug, image_url = nft.image_url, token_id = nft.token_id, collection_name = nftCollection!.name, nft_rarity = nft.nft_rarity, nft_return = nft.nft_return, traits = nft.traits
+        };
 
 
         this.NftSaleApiHandler = "GetNftSaleByCollection" + "/" + this.NftDto.slug + "/" + this.NftDto.token_id;

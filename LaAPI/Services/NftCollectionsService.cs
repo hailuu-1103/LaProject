@@ -22,7 +22,7 @@
             var documents = this.nftCollection.Find(new BsonDocument()).ToList();
             return documents.ToArray();
         }
-        public async Task<List<NftsCollectionDTO>> GetAllAsync()
+        public Task<List<NftsCollectionDTO>> GetAllAsync()
         {
             var documents = this.RetrieveDocuments();
             var result    = new List<NftsCollectionDTO>();
@@ -42,12 +42,34 @@
                     dto.image_url = imageUrlValue;
                 }
 
+                if (document.TryGetValue("stats", out var stats))
+                    dto.stats = new Stats
+                    {
+                        total_sales = this.GetNftStats(stats, "total_sales"),
+                        num_owners  = this.GetNftStats(stats, "num_owners")
+                    };
+
                 result.Add(dto);
                 this.cachedNftCollectionDTO.TryAdd(dto.id, dto);
             }
 
-            return result;
+            return Task.FromResult(result);
         }
-        public async Task<NftsCollectionDTO> GetNftCollectionByCollection(string collection) { return this.cachedNftCollectionDTO[collection]; }
+        public Task<NftsCollectionDTO> GetNftCollectionByCollection(string collection) { return Task.FromResult(this.cachedNftCollectionDTO[collection]); }
+
+        public Task<NftsCollectionDTO> GetTopSaleNftCollection() { return Task.FromResult(this.cachedNftCollectionDTO.Values.MaxBy(dto => dto.stats.total_sales)!); }
+
+        public Task<NftsCollectionDTO> GetTopOwnerNftCollection() { return Task.FromResult(this.cachedNftCollectionDTO.Values.MaxBy(dto => dto.stats.num_owners)!); }
+
+
+        private double GetNftStats(BsonValue document, string fieldName)
+        {
+            var fieldValue = document[fieldName];
+            if (fieldValue.IsInt32) return Convert.ToDouble(fieldValue.AsInt32);
+
+            if (fieldValue.IsDouble) return fieldValue.AsDouble;
+
+            return 0;
+        }
     }
 }

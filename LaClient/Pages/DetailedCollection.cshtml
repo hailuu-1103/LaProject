@@ -1,4 +1,4 @@
-﻿@page "{collection}"
+﻿@page "/DetailedCollection/{collection?}"
 @model DetailTokenModel
 @{
 }
@@ -126,6 +126,19 @@
 </style>
 
 <div class="container" style="margin-left: 350px; margin-top: 30px">
+    <div>
+        <form asp-page="./DetailedCollection" asp-page-handler="post">
+            <select id="sort-options" class="form-select" aria-label="Default select example" data-collection="@Model.Collection">
+                <option>Sort by</option>
+                <option value="rarity_asc" selected>Rarity ascending</option>
+                <option value="rarity_desc">Rarity descending</option>
+                <option value="return_asc">Return ascending</option>
+                <option value="return_desc">Return descending</option>
+            </select>
+        </form>
+    </div>
+    &nbsp;
+    &nbsp;
     <div class="col-lg-9">
         <div class=row>
             <div class="col-12">
@@ -154,8 +167,8 @@
                                         <a asp-page="/DetailedNft" asp-route-collection="@nftDto.slug" asp-route-id="@nftDto.token_id">Token id: @nftDto.token_id</a>
                                     </h6>
                                     <div class="product-price">
-                                        <span class="text-primary" style="font-size: medium">Rarity: @nftDto.nft_rarity.ToString("F2")</span>
-                                        <span class="text-primary" style="font-size: medium">Return: @(Math.Round(nftDto.nft_return * 100, 2))%</span>
+                                        <span class="text-primary" style="font-size: 14px">Rarity: @nftDto.nft_rarity.ToString("F2")</span>
+                                        <span class="text-primary" style="font-size: 14px">Return: @(Math.Round(nftDto.nft_return * 100, 2))%</span>
                                     </div>
                                 </div>
                             </div>
@@ -174,3 +187,40 @@
         </div>
     </div>
 </div>
+<script>
+    // Get the select element
+    var sortOptions = document.getElementById("sort-options");
+
+    // Get the collection value from the data attribute
+    var collection = sortOptions.getAttribute("data-collection");
+
+    // Add a change event listener to the select element
+    sortOptions.addEventListener("change", function() {
+        // Get the selected value
+        var selectedValue = this.value;
+
+        // Get the current URL
+        var currentUrl = window.location.href;
+        // Make an AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/DetailedCollection/" + collection + "?query=" + selectedValue, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Create an object to hold the query parameters
+                var queryParams = {};
+                
+                        // Add the "query" parameter to the object
+                queryParams["query"] = selectedValue;
+                
+                // Construct the updated URL with the query parameters
+                var updatedUrl = currentUrl.split("?")[0] + "?" + new URLSearchParams(queryParams).toString();
+                // Redirect the user to the updated URL
+                window.location.href = updatedUrl;
+                // Handle the response if needed
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send();
+    });
+</script>
+

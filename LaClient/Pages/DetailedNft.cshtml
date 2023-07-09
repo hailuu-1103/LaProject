@@ -9,6 +9,20 @@
         margin-left: 280px;
         margin-top: 20px;
     }
+    .item-container{
+        border: groove red;
+        height: 50vh;
+        width: 90vh;
+        padding-left: 20px;
+        padding-top: 20px;
+        background-color: antiquewhite;
+    }
+    .trait-item{
+        margin-top: 10px;
+        height: 55px;
+        width: auto;
+        font-size: large;
+    }
 </style>
 <div class="container nft-item">
     <div class="row">
@@ -19,6 +33,14 @@
             <p style="font-family: 'JetBrains Mono ExtraBold',sans-serif; font-size: 25px; font-weight: bold">
                 @Model.NftDto.collection_name #@Model.NftDto.token_id
             </p>
+            <div class="item-container">
+                @foreach (var trait in Model.NftDto.traits)
+                {
+                    <div class="row trait-item">
+                        @trait.trait_type : @trait.value (@trait.trait_count)
+                    </div>
+                }
+            </div>
         </div>
     </div>
     &nbsp;

@@ -1,7 +1,6 @@
 namespace LaClient.Pages
 {
     using System.Text.Json;
-    using LaAPI.DTO;
     using LaClient.DTO;
     using LaClient.Materials;
     using Microsoft.AspNetCore.Mvc;
@@ -14,7 +13,7 @@ namespace LaClient.Pages
         private static readonly string     NftApiUrl = $"{ProjectStaticValue.Host}/api/Nft/";
         private                 HttpClient client;
 
-        private string nftApiHandler;
+        private string? nftApiHandler;
 
         public List<NftDto> NftDto;
 
@@ -22,14 +21,14 @@ namespace LaClient.Pages
         {
             this.client = new HttpClient();
             this.NftDto = new List<NftDto>();
-            new List<NftsSaleDTO>();
         }
 
         [FromQuery(Name = "page")] public int          CurrentPage { get; set; } = 1;
         public                            List<string> PageLink    { get; set; } = new();
-
-        public async Task<IActionResult> OnGetAsync(string? collection)
+        public                            string?      Collection  { get; set; }
+        public async Task<IActionResult> OnGetAsync(string? collection, string query)
         {
+            this.Collection    = collection;
             this.nftApiHandler = $"GetTotalNftByCollection/{collection}";
             var responseTotalRecords = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
             var dataTotalRecords     = await responseTotalRecords.Content.ReadAsStringAsync();
@@ -53,6 +52,12 @@ namespace LaClient.Pages
             var data     = await response.Content.ReadAsStringAsync();
 
             this.NftDto = JsonSerializer.Deserialize<List<NftDto>>(data, options)!.ToList();
+            if (string.IsNullOrEmpty(query)) return this.Page();
+
+            this.nftApiHandler = $"SortNftCollectionByParam/{collection}/{query}/{this.CurrentPage}/{PageSize}";
+            var sortResponse = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
+            var sortData     = await sortResponse.Content.ReadAsStringAsync();
+            this.NftDto = JsonSerializer.Deserialize<List<NftDto>>(sortData, options)!.ToList();
 
             return this.Page();
         }
