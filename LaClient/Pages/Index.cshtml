@@ -7,6 +7,10 @@
 		display: flex;
 		gap: 20px;
 	}
+	.img-top{
+	    width: 12vh;
+	    height: 12vh;
+	}
 </style>
 <body>
 <!-- CONTENT -->
@@ -36,23 +40,23 @@
         </div>
 
         <!-- Overall infor -->
-        <ul class="box-info">
+        <ul class="box-info" style="padding-left: 0">
             <li>
-                <i class='bx bxs-calendar-check'></i>
+                <img class="img-top" src="@Model.TopReturnNftCollectionDto!.image_url" alt=""/>
                 <span class="text">
-                    <h3>1020</h3>
+                    <h3>@Model.TopReturnNftCollectionDto!.name</h3>
                     <p>Top Return</p>
                 </span>
             </li>
             <li>
-                <i class='bx bxs-group'></i>
+                <img class="img-top" src="@Model.TopOwnerNftCollectionDto!.image_url" alt=""/>
                 <span class="text">
                     <h3>@Model.TopOwnerNftCollectionDto!.stats.num_owners</h3>
                     <p>Top Unique Owner</p>
                 </span>
             </li>
             <li>
-                <i class='bx bxs-dollar-circle'></i>
+                <img class="img-top" src="@Model.TopSaleNftCollectionDto!.image_url" alt=""/>
                 <span class="text">
                     <h3>@Model.TopSaleNftCollectionDto!.stats.total_sales</h3>
                     <p>Top Sale</p>
@@ -78,11 +82,11 @@
                     <tr>
                         <th>Project</th>
                         <th>Ranking</th>
-                        <th>Score</th>
+                        <th>Return Score</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @for (var i = 0; i < Model.NftCollectionDto.Count; i++)
+                    @for (var i = 0; i < Model.NftCollectionDto!.Count; i++)
                     {
                         var nftModel = Model.NftCollectionDto[i];
                         if (i < 5)
@@ -94,7 +98,7 @@
                                 </td>
                                 <td>@(i + 1)</td>
                                 <td>
-                                    <span class="status pending">100</span>
+                                    <span class="status pending">@nftModel.nft_collection_return.ToString("F2")</span>
                                 </td>
                             </tr>
                         }
@@ -113,7 +117,7 @@
                     <tr>
                         <th>Project</th>
                         <th>Ranking</th>
-                        <th>Score</th>
+                        <th>Return Score</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -129,7 +133,7 @@
                                 </td>
                                 <td>@(i + 1)</td>
                                 <td>
-                                    <span class="status pending">100</span>
+                                    <span class="status pending">@nftModel.nft_collection_return.ToString("F2")</span>
                                 </td>
                             </tr>
                         }

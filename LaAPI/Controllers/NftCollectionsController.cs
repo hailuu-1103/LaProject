@@ -10,16 +10,41 @@
     {
         private readonly NftCollectionsService nftCollectionsService;
         public NftCollectionsController(NftCollectionsService service) { this.nftCollectionsService = service; }
+
         [HttpGet("GetAllCollections")]
-        public async Task<List<NftsCollectionDTO>> GetAllAsync() { return await this.nftCollectionsService.GetAllAsync(); }
+        public async Task<List<NftsCollectionDTO>> GetAllAsync()
+        {
+            return await this.nftCollectionsService.GetAllAsync();
+        }
 
         [HttpGet("GetNftCollectionByCollection/{collection}")]
-        public async Task<NftsCollectionDTO> GetNftCollectionByCollection(string collection) { return await this.nftCollectionsService.GetNftCollectionByCollection(collection); }
+        public async Task<NftsCollectionDTO> GetNftCollectionByCollection(string collection)
+        {
+            return await this.nftCollectionsService.GetNftCollectionByCollection(collection);
+        }
 
         [HttpGet("GetTopSaleNftCollection")]
-        public async Task<NftsCollectionDTO> GetTopSaleNftCollection() { return await this.nftCollectionsService.GetTopSaleNftCollection(); }
+        public async Task<NftsCollectionDTO> GetTopSaleNftCollection()
+        {
+            return await this.nftCollectionsService.GetTopSaleNftCollection();
+        }
 
         [HttpGet("GetTopOwnerNftCollection")]
-        public async Task<NftsCollectionDTO> GetTopOwnerNftCollection() { return await this.nftCollectionsService.GetTopOwnerNftCollection(); }
+        public async Task<NftsCollectionDTO> GetTopOwnerNftCollection()
+        {
+            return await this.nftCollectionsService.GetTopOwnerNftCollection();
+        }
+
+        [HttpGet("GetTopReturnNftCollection")]
+        public async Task<NftsCollectionDTO> GetTopReturnNftCollection()
+        {
+            return await this.nftCollectionsService.GetTopReturnNftCollection();
+        }
+
+        [HttpGet("SortByCollectionReturn")]
+        public async Task<List<NftsCollectionDTO>> SortByCollectionReturn()
+        {
+            return await this.nftCollectionsService.SortByCollectionReturn();
+        }
     }
 }

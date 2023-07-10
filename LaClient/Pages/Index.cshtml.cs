@@ -17,6 +17,7 @@
         private JsonSerializerOptions? options;
         public  NftCollectionDTO?      TopOwnerNftCollectionDto;
         public  NftCollectionDTO?      TopSaleNftCollectionDto;
+        public  NftCollectionDTO?      TopReturnNftCollectionDto;
 
         public IndexModel()
         {
@@ -34,7 +35,7 @@
             var dataNftCollection         = await listNftCollectionResponse.Content.ReadAsStringAsync();
 
             this.NftCollectionDto = JsonSerializer.Deserialize<List<NftCollectionDTO>>(dataNftCollection, this.options);
-            this.NftCollectionDto = this.NftCollectionDto!.Take(10).ToList();
+            this.NftCollectionDto = this.NftCollectionDto!.OrderByDescending(dto => dto.nft_collection_return).Take(10).ToList();
 
             this.NftCollectionApiHandler = "GetTopSaleNftCollection";
             var topSaleCollectionResponse = await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);
@@ -45,7 +46,14 @@
             var topOwnerCollectionResponse = await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);
             var dataTopOwnerCollection     = await topOwnerCollectionResponse.Content.ReadAsStringAsync();
             this.TopOwnerNftCollectionDto = JsonSerializer.Deserialize<NftCollectionDTO>(dataTopOwnerCollection, this.options);
-
+            
+            this.NftCollectionApiHandler = "GetTopReturnNftCollection";
+            var topReturnCollectionResponse =
+                await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);
+            var topReturnCollectionData = await topReturnCollectionResponse.Content.ReadAsStringAsync();
+            this.TopReturnNftCollectionDto =
+                JsonSerializer.Deserialize<NftCollectionDTO>(topReturnCollectionData, this.options);
+            
             return this.Page();
         }
     }

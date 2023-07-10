@@ -31,7 +31,8 @@
                 var dto = new NftsCollectionDTO
                 {
                     id   = document.GetValue("_id").AsString,
-                    name = document.GetValue("name").AsString
+                    name = document.GetValue("name").AsString,
+                    nft_collection_return = this.GetNftCollectionReturn(document, "nft_collection_return")
                 };
                 if (document.TryGetValue("primary_asset_contracts", out var primaryAssetContracts) &&
                     primaryAssetContracts is BsonDocument primaryAssetContractsDoc &&
@@ -61,9 +62,27 @@
 
         public Task<NftsCollectionDTO> GetTopOwnerNftCollection() { return Task.FromResult(this.cachedNftCollectionDTO.Values.MaxBy(dto => dto.stats.num_owners)!); }
 
-
+        public Task<NftsCollectionDTO> GetTopReturnNftCollection()
+        {
+            return Task.FromResult(this.cachedNftCollectionDTO.Values.MaxBy(dto => dto.nft_collection_return))!;
+        }
+        public Task<List<NftsCollectionDTO>> SortByCollectionReturn()
+        {
+            return Task.FromResult(this.cachedNftCollectionDTO.Values.ToList().OrderBy(dto => dto.nft_collection_return).ToList());
+        }
         private double GetNftStats(BsonValue document, string fieldName)
         {
+            var fieldValue = document[fieldName];
+            if (fieldValue.IsInt32) return Convert.ToDouble(fieldValue.AsInt32);
+
+            if (fieldValue.IsDouble) return fieldValue.AsDouble;
+
+            return 0;
+        }
+
+        private double GetNftCollectionReturn(BsonDocument document, string fieldName)
+        {
+            if (!document.Contains(fieldName)) return 0;
             var fieldValue = document[fieldName];
             if (fieldValue.IsInt32) return Convert.ToDouble(fieldValue.AsInt32);
 
