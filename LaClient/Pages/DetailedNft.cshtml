@@ -9,20 +9,26 @@
         margin-left: 280px;
         margin-top: 20px;
     }
-    .item-container{
+    #item-container{
         border: groove red;
-        height: 50vh;
-        width: 90vh;
+        height: 28.5vh;
+        width: 92vh;
         padding-left: 20px;
         padding-top: 20px;
         background-color: antiquewhite;
     }
     .trait-item{
-        margin-top: 10px;
         height: 55px;
         width: auto;
         font-size: large;
     }
+   .horizontal-p {
+           display: inline-block;
+           font-size: x-large;
+           font-weight: bolder;
+           justify-content: center;
+           margin-right: 30px; /* Adjust the margin as needed */
+       }
 </style>
 <div class="container nft-item">
     <div class="row">
@@ -33,7 +39,12 @@
             <p style="font-family: 'JetBrains Mono ExtraBold',sans-serif; font-size: 25px; font-weight: bold">
                 @Model.NftDto.collection_name #@Model.NftDto.token_id
             </p>
-            <div class="item-container">
+            <p class="horizontal-p">Rarity: @Model.NftDto.nft_rarity.ToString("F2")</p>
+            <p class="horizontal-p">Return: @(Math.Round(Model.NftDto.nft_return * 100, 2))%</p>
+            <p style="font-family: 'JetBrains Mono ExtraBold',sans-serif; font-size: 20px; font-weight: bold">
+                            Traits
+            </p>
+            <div id="item-container">
                 @foreach (var trait in Model.NftDto.traits)
                 {
                     <div class="row trait-item">
@@ -65,10 +76,10 @@
                 <td>@nftSaleDto.price @nftSaleDto.unit_token</td>
                 <td>@($"{nftSaleDto.usd_price:0.00}")</td>
                 <td>
-                    <span class="address" data-address="@nftSaleDto.from">@nftSaleDto.from.Substring(2, 6).ToUpper()</span>
+                    <span class="address" data-address="@nftSaleDto.from">@string.Concat("0x", nftSaleDto.from.Substring(2, 6).ToUpper())</span>
                 </td>
                 <td>
-                    <span class="address" data-address="@nftSaleDto.to">@nftSaleDto.to.Substring(2, 6).ToUpper()</span>
+                    <span class="address" data-address="@nftSaleDto.to">@string.Concat("0x", nftSaleDto.to.Substring(2, 6).ToUpper())</span>
                 </td>
                 <td>@nftSaleDto.time</td>
             </tr>
@@ -76,46 +87,68 @@
         </tbody>
     </table>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    // Add click event listener to address spans
-    const addresses = document.getElementsByClassName("address");
-    for (var i = 0; i < addresses.length; i++) {
-        addresses[i].addEventListener("click", function () {
-            const address = this.getAttribute("data-address");
-            copyToClipboard(address);
+    $(document).ready(function () {
+        adjustContainerSize();
+
+        $(window).resize(function () {
+            adjustContainerSize();
         });
-    }
 
-    // Function to copy text to clipboard
-    function copyToClipboard(text) {
-        const dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = text;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-        alert("Address copied to clipboard: " + text);
-    }
-   
-   // Function to convert date to relative time
-    function getRelativeTime(dateString) {
-        var date = new Date(dateString);
-        var now = new Date();
-        var diff = now - date;
-
-        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-        if (days > 0) {
-            return days + " day" + (days === 1 ? "" : "s") + " ago";
-        } else {
-            return "Today";
-            
+        // Add click event listener to address spans
+        const addresses = document.getElementsByClassName("address");
+        for (var i = 0; i < addresses.length; i++) {
+            addresses[i].addEventListener("click", function () {
+                const address = this.getAttribute("data-address");
+                copyToClipboard(address);
+            });
         }
-    }
 
-    // Update timestamp to relative time
-    var timestamps = document.getElementsByClassName("timestamp");
-    for (var i = 0; i < timestamps.length; i++) {
-        timestamps[i].innerText = getRelativeTime(timestamps[i].innerText);
-    }
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("Address copied to clipboard: " + text);
+        }
+
+        // Function to convert date to relative time
+        function getRelativeTime(dateString) {
+            var date = new Date(dateString);
+            var now = new Date();
+            var diff = now - date;
+
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            if (days > 0) {
+                return days + " day" + (days === 1 ? "" : "s") + " ago";
+            } else {
+                return "Today";
+            }
+        }
+
+        // Update timestamp to relative time
+        var timestamps = document.getElementsByClassName("timestamp");
+        for (var i = 0; i < timestamps.length; i++) {
+            timestamps[i].innerText = getRelativeTime(timestamps[i].innerText);
+        }
+
+        function adjustContainerSize() {
+            var container = $('#item-container');
+            var traitItems = container.find('.trait-item');
+            var traitCount = traitItems.length;
+
+            var containerHeight = container.css('height');
+            containerHeight = parseInt(containerHeight, 10);
+
+            var traitItemHeight = containerHeight / traitCount;
+
+            traitItems.css('height', traitItemHeight + 'px');
+        }
+    });
 </script>
