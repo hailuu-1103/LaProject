@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="~/css/style.css" rel="stylesheet"/>
 </head>
+<style>
+    .search-item{
+        width: 8vh;
+        height: 8vh;
+    }
+    #searchResults{
+       
+    }
+</style>
 <body>
 
 <!-- SIDEBAR -->
@@ -26,7 +35,7 @@
         <li>
             <a asp-page="/FAQ">
                 <i class='bx bxs-shopping-bag-alt fa-regular fa-circle-question' style="color: #3c91e6;"></i>
-                <span class="text">NFT FAQs</span>
+                <span class="text">NFT Related Knowledge</span>
             </a>
         </li>
         <!-- <li>
@@ -49,13 +58,20 @@
             <option value="bnb">BNB</option>
             <option value="avax">AVAX</option>
         </select>
-        <form action="#">
-            <div class="form-input">
-                <input type="search" placeholder="Search...">
+        @Html.AntiForgeryToken()
+        <form asp-page="/Index" id="searchForm">
+            <div class="form-input" style="margin-top: 25px">
+                <input type="search" placeholder="Search..." id="searchInput">
                 <button type="submit" class="search-btn">
                     <i class="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i>
                 </button>
             </div>
+            <div id="searchResults" style=" position:relative;
+                                            background-color: rgb(255,255,255);
+                                            padding: 8px;"
+                                            >
+            </div>
+            <ul ></ul>
         </form>
         <input type="checkbox" id="switch-mode" hidden>
         <label for="switch-mode" class="switch-mode"></label>
@@ -84,7 +100,62 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/script.js" asp-append-version="true"></script>
-
 @await RenderSectionAsync("Scripts", required: false)
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
+            let searchTerm = $(this).val();
+            if (searchTerm.length >= 1) { 
+                $.ajax({
+                    url: '/Index?handler=Search', 
+                    method: 'POST',
+                    data: { searchTerm: searchTerm },
+                    beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                    success: function (data) {
+                        console.log("Ok!");
+                        
+                        loadCollectionItemView(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            } else {
+                // Clear the search results if the search term is empty
+                $('#searchResults').empty();
+            }
+        });
+        function loadCollectionItemView(data){
+            var resultHolder = document.getElementById("searchResults");
+            
+            // Remove all previous data
+            const previousData = resultHolder.querySelectorAll("ul");
+            previousData.forEach((child) => {
+                child.remove();
+            })
+            resultHolder.setAttribute("style","margin-top: " + 82 * data.length + "px");
+            for (let index in data){
+                let element = data[index];
+                const anchorElement = document.createElement("a");
+                anchorElement.setAttribute("href", "/DetailedCollection/" + element.id);
+                anchorElement.innerHTML = element.name;
+                anchorElement.setAttribute("style", "display:inline-block");
+                const ulElement = document.createElement("ul");
+                resultHolder.appendChild(ulElement);
+                
+                const imgElement = document.createElement("img");
+                imgElement.setAttribute("class", "search-item");
+                imgElement.setAttribute("src", element.image_url);
+                ulElement.appendChild(imgElement);
+                ulElement.appendChild(anchorElement);
+            }
+        }
+    });
+</script>
+
 </body>
 </html>

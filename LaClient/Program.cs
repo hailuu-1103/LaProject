@@ -4,6 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+//Razor Pages automatically generates and validates Antiforgery tokens to prevent CSRF attacks. Since you aren't sending any token within your AJAX callback, the request fails.
+builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
