@@ -70,7 +70,7 @@
             <div class="order">
                 <div class="head">
                     <div class="head">
-                        <h3>Top Ranking</h3>
+                        <h3>Ranking by Return</h3>
                         <i class='bx bx-search'></i>
                         <i class='bx bx-filter'></i>
                     </div>
@@ -87,55 +87,81 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @for (var i = 0; i < Model.NftCollectionDto!.Count; i++)
+                    @for (var i = 0; i < Model.TopReturnCollectionDtos!.Count; i++)
                     {
-                        var nftModel = Model.NftCollectionDto[i];
-                        if (i < 5)
-                        {
-                            <tr>
-                                <td>
-                                    <img src="@nftModel.image_url">
-                                    <a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
-                                </td>
-                                <td>@(i + 1)</td>
+                        var nftModel = Model.TopReturnCollectionDtos[i];
+                        <tr>
+                            <td>
+                                <img src="@nftModel.image_url">
+                                <a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
+                            </td>
+                            <td>@(i + 1)</td>
+                            @if(i == 0){
                                 <td>
                                     <span class="status pending">@nftModel.nft_collection_return.ToString("F2")</span>
                                 </td>
-                            </tr>
-                        }
+                            }
+                            else
+                            {
+                                <td>
+                                    <span class="status completed">@nftModel.nft_collection_return.ToString("F2")</span>
+                                </td>
+                            }
+                        </tr>
                     }
                     </tbody>
                 </table>
             </div>
             <div class="order">
                 <div class="head">
-                    <h3>Top Ranking</h3>
+                    <h3>Ranking by Reputation</h3>
                 </div>
                 <table>
                     <thead>
                     <tr>
                         <th>Project</th>
                         <th>Ranking</th>
-                        <th>Return Score</th>
+                        <th>Followers</th>
+                        <th>Interaction</th>
+                        <th>Attention</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @for (var i = 0; i < Model.NftCollectionDto.Count; i++)
+                    @for (var i = 0; i < Model.TopFollowersCollectionDtos.Count; i++)
                     {
-                        var nftModel = @Model.NftCollectionDto[i];
-                        if (i >= 5)
-                        {
-                            <tr>
-                                <td>
-                                    <img src="@nftModel.image_url">
-                                    <a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
+                        var nftModel = @Model.TopFollowersCollectionDtos[i];
+                        <tr>
+                            <td>
+                                <img src="@nftModel.image_url">
+                                <a asp-page="DetailedCollection" asp-route-collection="@nftModel.id">@nftModel.name</a>
+                            </td>
+                            <td>@(i + 1)</td>
+                            @if (i == 0)
+                            {
+                                <td>  
+                                    <span class="status pending">@nftModel.twitter_followers</span>
                                 </td>
-                                <td>@(i + 1)</td>
-                                <td>
-                                    <span class="status pending">@nftModel.nft_collection_return.ToString("F2")</span>
+                                <td>  
+                                    <span class="status pending">@nftModel.avg_tweet_interaction.ToString("F2")</span>
                                 </td>
-                            </tr>
-                        }
+                                <td>  
+                                    <span class="status pending">@nftModel.avg_tweet_attention.ToString("F2")</span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>  
+                                    <span class="status completed">@nftModel.twitter_followers</span>
+                                </td>
+                                <td>  
+                                    <span class="status completed">@nftModel.avg_tweet_interaction.ToString("F2")</span>
+                                </td>
+                                <td>  
+                                    <span class="status completed">@nftModel.avg_tweet_attention.ToString("F2")</span>
+                                </td>
+                            }
+                            
+                        </tr>
                     }
                     </tbody>
                 </table>

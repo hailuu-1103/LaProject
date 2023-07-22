@@ -11,12 +11,14 @@
         private static readonly string     NftCollectionApiUrl = $"{ProjectStaticValue.Host}/api/NftCollections/";
         private                 HttpClient client;
         private                 string     NftCollectionApiHandler;
-
-        public List<NftCollectionDTO>? NftCollectionDto;
-
-        public NftCollectionDTO? TopOwnerNftCollectionDto;
-        public NftCollectionDTO? TopSaleNftCollectionDto;
-        public NftCollectionDTO? TopReturnNftCollectionDto;
+        private const           int NumberOfRecord = 5;
+        private                 List<NftCollectionDTO>? CachedNftCollectionDtos;
+        
+        public List<NftCollectionDTO> TopReturnCollectionDtos;
+        public List<NftCollectionDTO> TopFollowersCollectionDtos;
+        public NftCollectionDTO?      TopOwnerNftCollectionDto;
+        public NftCollectionDTO?      TopSaleNftCollectionDto;
+        public NftCollectionDTO?      TopReturnNftCollectionDto;
 
         private List<NftCollectionDTO>? AllNftCollectionDto;
         private JsonSerializerOptions?  options;
@@ -37,10 +39,11 @@
                 await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);
             var dataNftCollection = await listNftCollectionResponse.Content.ReadAsStringAsync();
 
-            this.NftCollectionDto = JsonSerializer.Deserialize<List<NftCollectionDTO>>(dataNftCollection, this.options);
-            this.NftCollectionDto = this.NftCollectionDto!.OrderByDescending(dto => dto.nft_collection_return).Take(10)
+            this.CachedNftCollectionDtos = JsonSerializer.Deserialize<List<NftCollectionDTO>>(dataNftCollection, this.options);
+            this.TopReturnCollectionDtos = this.CachedNftCollectionDtos!.OrderByDescending(dto => dto.nft_collection_return).Take(NumberOfRecord)
                 .ToList();
-
+            this.TopFollowersCollectionDtos = this.CachedNftCollectionDtos!.OrderByDescending(dto => dto.twitter_followers).Take(NumberOfRecord)
+                .ToList();
             this.NftCollectionApiHandler = "GetTopSaleNftCollection";
             var topSaleCollectionResponse =
                 await this.client.GetAsync(NftCollectionApiUrl + this.NftCollectionApiHandler);

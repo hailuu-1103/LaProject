@@ -32,7 +32,7 @@
                 {
                     id   = document.GetValue("_id").AsString,
                     name = document.GetValue("name").AsString,
-                    nft_collection_return = this.GetNftCollectionReturn(document, "nft_collection_return")
+                    nft_collection_return = this.GetDynamicFieldInDocument(document, "nft_collection_return")
                 };
                 if (document.TryGetValue("primary_asset_contracts", out var primaryAssetContracts) &&
                     primaryAssetContracts is BsonDocument primaryAssetContractsDoc &&
@@ -46,10 +46,12 @@
                 if (document.TryGetValue("stats", out var stats))
                     dto.stats = new Stats
                     {
-                        total_sales = this.GetNftStats(stats, "total_sales"),
-                        num_owners  = this.GetNftStats(stats, "num_owners")
+                        total_sales = this.GetDynamicFieldInValue(stats, "total_sales"),
+                        num_owners  = this.GetDynamicFieldInValue(stats, "num_owners")
                     };
-
+                dto.twitter_followers = this.GetDynamicFieldInDocument(document, "twitter_followers");
+                dto.avg_tweet_interaction = this.GetDynamicFieldInDocument(document, "avg_tweet_interaction");
+                dto.avg_tweet_attention = this.GetDynamicFieldInDocument(document, "avg_tweet_attention");
                 result.Add(dto);
                 this.cachedNftCollectionDTO.TryAdd(dto.id, dto);
             }
@@ -70,7 +72,7 @@
         {
             return Task.FromResult(this.cachedNftCollectionDTO.Values.ToList().OrderBy(dto => dto.nft_collection_return).ToList());
         }
-        private double GetNftStats(BsonValue document, string fieldName)
+        private double GetDynamicFieldInValue(BsonValue document, string fieldName)
         {
             var fieldValue = document[fieldName];
             if (fieldValue.IsInt32) return Convert.ToDouble(fieldValue.AsInt32);
@@ -80,7 +82,7 @@
             return 0;
         }
 
-        private double GetNftCollectionReturn(BsonDocument document, string fieldName)
+        private double GetDynamicFieldInDocument(BsonDocument document, string fieldName)
         {
             if (!document.Contains(fieldName)) return 0;
             var fieldValue = document[fieldName];
