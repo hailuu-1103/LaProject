@@ -71,6 +71,8 @@
                     "rarity_desc" => listDto.OrderByDescending(dto => dto.nft_rarity).ToList(),
                     "return_asc" => listDto.OrderBy(dto => dto.nft_return).ToList(),
                     "return_desc" => listDto.OrderByDescending(dto => dto.nft_return).ToList(),
+                    "id_asc" => listDto.OrderBy(dto => int.Parse(dto.token_id)).ToList(),
+                    "id_desc" => listDto.OrderByDescending(dto => int.Parse(dto.token_id)).ToList(),
                     _ => this.cachedNftDto[collection]
                 };
 
