@@ -42,13 +42,35 @@
         <div class="table-data display-table">
             <div class="order">
                 <table>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Return score</th>
+                        <th>Followers</th>
+                        <th>Interaction</th>
+                        <th>Attention</th>
+                      </tr>
                     <tbody>
                     @foreach (var nftsCollection in Model.NftsCollectionDto)
                     {
                         <tr>
                             <td>
                                 <img src="@nftsCollection.image_url">
+                            </td>
+                            <td>
                                 <a asp-page="DetailedCollection" asp-route-collection="@nftsCollection.id">@nftsCollection.name</a>
+                            </td>
+                            <td>
+                                @nftsCollection.nft_collection_return
+                            </td>
+                            <td>
+                                @nftsCollection.twitter_followers
+                            </td>
+                            <td>
+                                @nftsCollection.avg_tweet_interaction
+                            </td>
+                            <td>
+                                @nftsCollection.avg_tweet_attention
                             </td>
                         </tr>
                     }

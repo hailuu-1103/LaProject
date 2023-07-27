@@ -10,11 +10,19 @@
 </head>
 <style>
     .search-item{
-        width: 8vh;
-        height: 8vh;
+        aspect-ratio: 1 / 1;
+        height: 50px;
     }
     #searchResults{
-       
+       position: absolute;
+       top: 70px;
+       background-color: whitesmoke;
+       width: 400px;
+       padding: 20px;
+       border: 1px solid black;
+       border-radius: 6px;
+       max-height: 500px;
+       overflow-y: auto;
     }
 </style>
 <body>
@@ -22,19 +30,19 @@
 <!-- SIDEBAR -->
 <section id="sidebar">
     <a asp-page="/Index" class="brand">
-        <i class='bx bxs-smile'></i>
+        <i class="bx bxs-smile"></i>
         <span class="text">NFTs Ranking</span>
     </a>
     <ul class="side-menu top">
         <li class="active">
             <a asp-page="/Index">
-                <i class='bx bxs-dashboard fas fa-home'></i>
+                <i class="bx bxs-dashboard fas fa-home"></i>
                 <span class="text">Dashboard</span>
             </a>
         </li>
         <li>
             <a asp-page="/FAQ">
-                <i class='bx bxs-shopping-bag-alt fa-regular fa-circle-question' style="color: #3c91e6;"></i>
+                <i class="bx bxs-shopping-bag-alt fa-regular fa-circle-question" style="color: #3c91e6;"></i>
                 <span class="text">NFT Related Knowledge</span>
             </a>
         </li>
@@ -51,7 +59,7 @@
 <section id="content">
     <!-- NAVBAR -->
     <nav>
-        <i class='bx bx-menu'></i>
+        <i class="bx bx-menu"></i>
         <select href="#" class="nav-link" name="chains" id="chains">
             <option value="allchain">All Chains</option>
             <option value="eth">ETH</option>
@@ -60,23 +68,20 @@
         </select>
         @Html.AntiForgeryToken()
         <form asp-page="/Index" id="searchForm">
-            <div class="form-input" style="margin-top: 25px">
+            <div class="form-input">
                 <input type="search" placeholder="Search..." id="searchInput">
-                <button type="submit" class="search-btn">
+                <button type="submit" class="search-btn" style="aspect-ratio: 1/1">
                     <i class="fa-sharp fa-solid fa-magnifying-glass fa-beat-fade"></i>
                 </button>
             </div>
-            <div id="searchResults" style=" position:relative;
-                                            background-color: rgb(255,255,255);
-                                            padding: 8px;"
-                                            >
+            <div id="searchResults" class="container-fluid d-none">
+
             </div>
-            <ul ></ul>
         </form>
         <input type="checkbox" id="switch-mode" hidden>
         <label for="switch-mode" class="switch-mode"></label>
         <a href="#" class="notification">
-            <i class='bx bxs-bell'></i>
+            <i class="bx bxs-bell"></i>
             <span class="num">8</span>
         </a>
         <a href="#" class="profile">
@@ -100,59 +105,90 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/script.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        let searchTimeout = null
+        
         $('#searchInput').on('input', function () {
             let searchTerm = $(this).val();
+            clearTimeout(searchTimeout);
+            
             if (searchTerm.length >= 1) { 
-                $.ajax({
-                    url: '/Index?handler=Search', 
-                    method: 'POST',
-                    data: { searchTerm: searchTerm },
-                    beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("XSRF-TOKEN",
-                                        $('input:hidden[name="__RequestVerificationToken"]').val());
-                                },
-                    success: function (data) {
-                        console.log("Ok!");
-                        
-                        loadCollectionItemView(data);
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(error);
-                    }
-                });
+                searchTimeout = setTimeout(() => {
+                    $.ajax({
+                        url: '/Index?handler=Search', 
+                        method: 'POST',
+                        data: { searchTerm: searchTerm },
+                        beforeSend: function (xhr) {
+                                        xhr.setRequestHeader("XSRF-TOKEN",
+                                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                                    },
+                        success: function (data) {
+                            console.log("Ok!");
+                            
+                            loadCollectionItemView(data);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+            });
+                }, 2000);
             } else {
                 // Clear the search results if the search term is empty
                 $('#searchResults').empty();
+                this.addClass("d-none")
             }
-        });
-        function loadCollectionItemView(data){
-            var resultHolder = document.getElementById("searchResults");
             
-            // Remove all previous data
-            const previousData = resultHolder.querySelectorAll("ul");
-            previousData.forEach((child) => {
-                child.remove();
+        });
+        
+        function loadCollectionItemView(data){
+            const resultHolder = document.getElementById("searchResults");
+            
+            if (data.length > 0)  
+                resultHolder.classList.remove("d-none")
+            else 
+                return
+                        
+            resultHolder.innerHTML = "";
+            
+            data.forEach(e => {
+                resultHolder.innerHTML += `
+                <div class="row my-1">
+                   <div class="col-3">
+                       <img class="search-item" src="${e["image_url"]}">
+                   </div>
+                   <div class="col-9 d-flex justify-content-center align-items-center">
+                       <a href="/DetailedCollection/${e["id"]}">${e["name"]}</a>
+                   </div>
+                </div>
+                <hr class="border border-1" style="height: 1px">`;
             })
-            resultHolder.setAttribute("style","margin-top: " + 82 * data.length + "px");
-            for (let index in data){
-                let element = data[index];
-                const anchorElement = document.createElement("a");
-                anchorElement.setAttribute("href", "/DetailedCollection/" + element.id);
-                anchorElement.innerHTML = element.name;
-                anchorElement.setAttribute("style", "display:inline-block");
-                const ulElement = document.createElement("ul");
-                resultHolder.appendChild(ulElement);
-                
-                const imgElement = document.createElement("img");
-                imgElement.setAttribute("class", "search-item");
-                imgElement.setAttribute("src", element.image_url);
-                ulElement.appendChild(imgElement);
-                ulElement.appendChild(anchorElement);
-            }
+            
+            // var resultHolder = document.getElementById("searchResults");
+            //
+            // // Remove all previous data
+            // const previousData = resultHolder.querySelectorAll("ul");
+            // previousData.forEach((child) => {
+            //     child.remove();
+            // })
+            //
+            // for (let index in data){    
+            //     let element = data[index];
+            //     const anchorElement = document.createElement("a");
+            //     anchorElement.setAttribute("href", "/DetailedCollection/" + element.id);
+            //     anchorElement.innerHTML = element.name;
+            //     anchorElement.setAttribute("style", "display:inline-block");
+            //     const ulElement = document.createElement("ul");
+            //     resultHolder.appendChild(ulElement);
+            //    
+            //     const imgElement = document.createElement("img");
+            //     imgElement.setAttribute("class", "search-item");
+            //     imgElement.setAttribute("src", element.image_url);
+            //     ulElement.appendChild(imgElement);
+            //     ulElement.appendChild(anchorElement);
+            // }
         }
     });
 </script>

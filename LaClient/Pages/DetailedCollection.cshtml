@@ -129,8 +129,7 @@
     <div>
         <form asp-page="./DetailedCollection" asp-page-handler="post">
             <select id="sort-options" class="form-select" aria-label="Default select example" data-collection="@Model.Collection">
-                <option>Sort by</option>
-                <option value="rarity_asc" selected>Rarity ascending</option>
+                <option value="rarity_asc">Rarity ascending</option>
                 <option value="rarity_desc">Rarity descending</option>
                 <option value="return_asc">Return ascending</option>
                 <option value="return_desc">Return descending</option>
@@ -190,35 +189,29 @@
     </div>
 </div>
 <script>
-    // Get the select element
-    var sortOptions = document.getElementById("sort-options");
+    const sortOptions = document.getElementById("sort-options");
 
-    // Get the collection value from the data attribute
-    var collection = sortOptions.getAttribute("data-collection");
+    const collection = sortOptions.getAttribute("data-collection");
 
-    // Add a change event listener to the select element
     sortOptions.addEventListener("change", function() {
-        // Get the selected value
-        var selectedValue = this.value;
-
-        // Get the current URL
-        var currentUrl = window.location.href;
-        // Make an AJAX request to the server
-        var xhr = new XMLHttpRequest();
+        const selectedValue = this.value;
+        /*for(let i = 0; i < this.options.length; i++){
+            const option = this.options[i]; 
+            if(false){
+                option.setAttribute('selected', 'selected');
+             }else{
+               option.removeAttribute('selected');
+             }
+        }*/        
+        const currentUrl = window.location.href;
+        const xhr = new XMLHttpRequest();
         xhr.open("GET", "/DetailedCollection/" + collection + "?query=" + selectedValue, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                // Create an object to hold the query parameters
-                var queryParams = {};
-                
-                        // Add the "query" parameter to the object
+                const queryParams = {};
                 queryParams["query"] = selectedValue;
-                
-                // Construct the updated URL with the query parameters
-                var updatedUrl = currentUrl.split("?")[0] + "?" + new URLSearchParams(queryParams).toString();
-                // Redirect the user to the updated URL
+                const updatedUrl = currentUrl.split("?")[0] + "?" + new URLSearchParams(queryParams).toString();
                 window.location.href = updatedUrl;
-                // Handle the response if needed
                 console.log(xhr.responseText);
             }
         };

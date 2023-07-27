@@ -12,9 +12,10 @@ namespace LaClient.Pages
 
         private static readonly string     NftApiUrl = $"{ProjectStaticValue.Host}/api/Nft/";
         private                 HttpClient client;
-
+        
         private string? nftApiHandler;
 
+        /*public string       Query = "";*/
         public List<NftDto> NftDto;
 
         public DetailTokenModel()
@@ -53,7 +54,7 @@ namespace LaClient.Pages
 
             this.NftDto = JsonSerializer.Deserialize<List<NftDto>>(data, options)!.ToList();
             if (string.IsNullOrEmpty(query)) return this.Page();
-
+            /*this.Query              = query;*/
             this.nftApiHandler = $"SortNftCollectionByParam/{collection}/{query}/{this.CurrentPage}/{PageSize}";
             var sortResponse = await this.client.GetAsync(NftApiUrl + this.nftApiHandler);
             var sortData     = await sortResponse.Content.ReadAsStringAsync();
