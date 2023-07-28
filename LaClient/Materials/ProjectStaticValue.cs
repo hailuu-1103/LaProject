@@ -2,5 +2,5 @@
 
 public static class ProjectStaticValue
 {
-    public const string ApiUrlHost = "http://localhost:5005";
+    public const string Host = "http://localhost:5005";
 }
