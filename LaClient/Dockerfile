@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["LaClient.csproj", "LaClient/"]
+COPY ["LaClient/LaClient.csproj", "LaClient/"]
 RUN dotnet restore "LaClient/LaClient.csproj"
 COPY . .
 WORKDIR "/src/LaClient"
