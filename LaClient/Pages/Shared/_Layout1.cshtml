@@ -39,7 +39,7 @@
             </a>
         </li>
         <li>
-            <a asp-page="/FAQ">
+            <a id="contact-us">
                 <i class='bx bxs-shopping-bag-alt fa-regular fa-circle-question' style="color: #3c91e6;"></i>
                 <span class="text">Contact us</span>
             </a>
@@ -108,6 +108,19 @@
 <script src="~/js/script.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('#contact-us').on('click', function (){
+        showAlert();
+    })
+    function showAlert(){
+        Swal.fire(
+          'Free free to contact',
+          'Email: truong.pt194460@sis.hust.edu',
+          'question'
+        )
+    }
+</script>
 <script>
     $(document).ready(function () {
         $('#searchInput').on('input', function () {
