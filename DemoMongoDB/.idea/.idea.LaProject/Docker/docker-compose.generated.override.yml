@@ -1,0 +1,36 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.4"
+services:
+  la-api:
+    build:
+      context: "/home/hailuu/RiderProjects/LaProject"
+      dockerfile: "LaAPI/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/LaAPI.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    image: "la-api:dev"
+    ports: []
+    volumes:
+    - "/home/hailuu/RiderProjects/LaProject/LaAPI:/app:rw"
+    working_dir: "/app"
+  la-client:
+    build:
+      context: "/home/hailuu/RiderProjects/LaProject"
+      dockerfile: "LaClient/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/LaClient.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net7.0/LaClient.staticwebassets.runtime.CT.json"
+    image: "la-client:dev"
+    ports: []
+    volumes:
+    - "/home/hailuu/RiderProjects/LaProject/LaClient:/app:rw"
+    working_dir: "/app"

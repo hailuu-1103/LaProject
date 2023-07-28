@@ -1,0 +1,21 @@
+﻿version: '3.4'
+
+services:
+  la-api:
+    image: ${DOCKER_REGISTRY-}la-api
+    build:
+      context: .
+      dockerfile: LaAPI/Dockerfile
+    container_name: la-api
+    ports:
+      - "5005:80"
+  la-client:
+    image: ${DOCKER_REGISTRY-}la-client
+    build:
+      context: .
+      dockerfile: LaClient/Dockerfile
+    container_name: la-client
+    ports:
+      - "3003:80"
+      - "3004:443"
+  

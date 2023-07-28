@@ -51,7 +51,7 @@
                 token_id   = document["_id"]["token_id"].AsString,
                 slug       = document["_id"]["slug"].AsString,
                 nft_rarity = document["nft_rarity"].AsDouble,
-                nft_return = this.GetNftReturn(document, "nft_return"),
+                nft_return = this.GetFieldByName(document, "nft_return"),
                 traits     = this.GetListTraits(document)
             }).ToList();
 
@@ -78,7 +78,7 @@
 
             return Task.FromResult(this.cachedNftDto[collection].Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList());
         }
-        private double GetNftReturn(BsonDocument document, string fieldName)
+        private double GetFieldByName(BsonDocument document, string fieldName)
         {
             if (!document.Contains(fieldName)) return 0;
             var fieldValue = document[fieldName];

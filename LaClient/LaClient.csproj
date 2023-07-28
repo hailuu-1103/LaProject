@@ -2,8 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>395a193e-71f9-4a62-b396-e53fad83b4a3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
