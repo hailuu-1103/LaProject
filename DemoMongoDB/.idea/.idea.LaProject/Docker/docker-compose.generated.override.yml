@@ -3,7 +3,7 @@ version: "3.4"
 services:
   la-api:
     build:
-      context: "/home/hailuu/RiderProjects/LaProject"
+      context: "A:\\Money\\LaProject"
       dockerfile: "LaAPI/Dockerfile"
       target: "base"
     command: []
@@ -15,11 +15,11 @@ services:
     image: "la-api:dev"
     ports: []
     volumes:
-    - "/home/hailuu/RiderProjects/LaProject/LaAPI:/app:rw"
+    - "A:\\Money\\LaProject\\LaAPI:/app:rw"
     working_dir: "/app"
   la-client:
     build:
-      context: "/home/hailuu/RiderProjects/LaProject"
+      context: "A:\\Money\\LaProject"
       dockerfile: "LaClient/Dockerfile"
       target: "base"
     command: []
@@ -32,5 +32,5 @@ services:
     image: "la-client:dev"
     ports: []
     volumes:
-    - "/home/hailuu/RiderProjects/LaProject/LaClient:/app:rw"
+    - "A:\\Money\\LaProject\\LaClient:/app:rw"
     working_dir: "/app"
