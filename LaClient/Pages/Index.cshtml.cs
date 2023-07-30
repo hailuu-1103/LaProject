@@ -120,10 +120,10 @@
 
             i--;
 
-            ws.Cells("A1:G" + i).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
-            ws.Cells("A1:G" + i).Style.Border.TopBorder    = XLBorderStyleValues.Thin;
-            ws.Cells("A1:G" + i).Style.Border.LeftBorder   = XLBorderStyleValues.Thin;
-            ws.Cells("A1:G" + i).Style.Border.RightBorder  = XLBorderStyleValues.Thin;
+            ws.Cells("A1:E" + i).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+            ws.Cells("A1:E" + i).Style.Border.TopBorder    = XLBorderStyleValues.Thin;
+            ws.Cells("A1:E" + i).Style.Border.LeftBorder   = XLBorderStyleValues.Thin;
+            ws.Cells("A1:E" + i).Style.Border.RightBorder  = XLBorderStyleValues.Thin;
 
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
